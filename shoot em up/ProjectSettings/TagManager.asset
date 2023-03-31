@@ -50,7 +50,7 @@ TagManager:
   - name: Bullet
     uniqueID: 368741919
     locked: 0
-  - name: Pistol
+  - name: Weapon
     uniqueID: 1353143677
     locked: 0
   - name: Wall

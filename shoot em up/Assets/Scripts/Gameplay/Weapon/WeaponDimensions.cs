@@ -11,7 +11,7 @@ namespace ShootEmUp.Gameplay.Weapon
 
         [SerializeField] private Transform _spriteTransform;
 
-        [SerializeField] [Range(0.1f, 10.0f)] private float _spriteXOffset;        
+        [SerializeField] private Vector3 _spriteOffset;        
 
         private Vector3 _originPosition;
 
@@ -40,7 +40,7 @@ namespace ShootEmUp.Gameplay.Weapon
 
         public void ApplyOffsetToSpritePosition() 
         {
-            _spriteTransform.position += Vector3.right * _spriteXOffset;
+            _spriteTransform.position += _spriteOffset;            
         }
 
         public void SetSpritePositionToOrigin() 

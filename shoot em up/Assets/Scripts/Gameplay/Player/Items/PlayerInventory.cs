@@ -67,9 +67,7 @@ namespace ShootEmUp.Gameplay.Player.Items
 
             _weaponIdentityAux = _weapon.GetComponent<WeaponIdentity>();
 
-            _weaponIdentityAux.PickedUp.PickedUp(gameObject);
-
-            _weaponIdentityAux.Dimensions.ApplyOffsetToSpritePosition();
+            _weaponIdentityAux.PickedUp.PickedUp(gameObject);            
         }
 
         private bool IsGameObjectAWeapon(GameObject gameObject) 
