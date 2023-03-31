@@ -6,28 +6,23 @@ using ShootEmUp.Gameplay.Weapon.Shooting;
 namespace ShootEmUp.Gameplay.Player.Actions.Combat 
 {
     [RequireComponent(typeof(PlayerIdentity))]
-    public class PlayerUseInventoryItem : MonoBehaviour
+    public class PlayerUseInventoryItem : PlayerBase
     {
-        private PlayerIdentity _identity;
-
-        void Awake()
-        {
-            _identity = GetComponent<PlayerIdentity>();
-        }
-
-        void Start()
-        {
-            _identity.PullTheTriggerAction.OnTriggerPulled += UseInventoryItem;
-        }
-
         void OnDestroy()
         {
-            _identity.PullTheTriggerAction.OnTriggerPulled -= UseInventoryItem;
+            Identity.PullTheTriggerAction.OnTriggerPulled -= UseInventoryItem;
         }
 
         void UseInventoryItem() 
         {
-            _identity.Inventory.Weapon.GetComponent<WeaponSingleShooting>().Shoot();
+            Identity.Inventory.Weapon.GetComponent<WeaponSingleShooting>().Shoot();
+        }
+
+        public override void InitialSettings()
+        {
+            Identity = GetComponent<PlayerIdentity>(); 
+            
+            Identity.PullTheTriggerAction.OnTriggerPulled += UseInventoryItem;
         }
     }
 }

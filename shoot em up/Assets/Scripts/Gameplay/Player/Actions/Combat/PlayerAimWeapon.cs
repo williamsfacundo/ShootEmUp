@@ -6,10 +6,8 @@ using ShootEmUp.Gameplay.Identity;
 namespace ShootEmUp.Gameplay.Player.Actions.Combat
 {
     [RequireComponent(typeof(PlayerIdentity))]
-    public class PlayerAimWeapon : MonoBehaviour
+    public class PlayerAimWeapon : PlayerBase
     {
-        private PlayerIdentity _identity;
-
         private Transform _weaponTransform;
 
         private Vector3 _mousePosition;
@@ -22,21 +20,18 @@ namespace ShootEmUp.Gameplay.Player.Actions.Combat
 
         private float _aimAngle;
 
-        void Awake()
-        {
-            _identity = GetComponent<PlayerIdentity>();
-        }
-
-        void Start()
-        {
-            _weaponTransform = _identity.Inventory.Weapon.transform;
-
-            _eulerAngles = new Vector3();
-        }
-
         void Update()
         {
             AimingWeapon();
+        }
+
+        public override void InitialSettings()
+        {
+            Identity = GetComponent<PlayerIdentity>();
+
+            _weaponTransform = Identity.Inventory.Weapon.transform;
+
+            _eulerAngles = new Vector3();            
         }
 
         private void AimingWeapon()
@@ -75,6 +70,6 @@ namespace ShootEmUp.Gameplay.Player.Actions.Combat
             }
 
             _weaponTransform.localScale = _aimLocalScale;
-        }        
+        }
     }
 }

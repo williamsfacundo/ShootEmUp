@@ -16,7 +16,9 @@ namespace ShootEmUp.Gameplay.Identity
 
         private PlayerAimWeapon _aimWeapon;
 
-        private PlayerInventory _inventory;        
+        private PlayerInventory _inventory; 
+        
+        private PlayerUseInventoryItem _useInventoryItem;
 
         public PlayerPullTheTriggerAction PullTheTriggerAction
         {
@@ -50,6 +52,14 @@ namespace ShootEmUp.Gameplay.Identity
             }
         }
 
+        public PlayerUseInventoryItem UseInventoryItem 
+        {
+            get 
+            {
+                return _useInventoryItem;
+            }
+        }
+
         void Awake()
         {
             SetRigidbody2D();           
@@ -61,6 +71,16 @@ namespace ShootEmUp.Gameplay.Identity
             _aimWeapon = GetComponent<PlayerAimWeapon>();
 
             _inventory = GetComponent<PlayerInventory>();
+
+            _useInventoryItem = GetComponent<PlayerUseInventoryItem>();;
+
+            _inventory.InitialSettings();
+
+            _useInventoryItem.InitialSettings();
+
+            _aimWeapon.InitialSettings();
+
+            _movementController.InitialSettings();
         }
     }
 }

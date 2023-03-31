@@ -1,34 +1,23 @@
 using UnityEngine;
 
+using ShootEmUp.Gameplay.Identity;
+
 namespace ShootEmUp.Gameplay.Player.Actions.Movement
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class PlayerMovementController : MonoBehaviour
+    public class PlayerMovementController : PlayerBase
     {
         [SerializeField] [Range(10.0f, 50.0f)] private float _velocity;
 
         [SerializeField] private string _horizontalAxisName;
 
-        [SerializeField] private string _verticalAxisName;
-
-        private Rigidbody2D _rigidbody2D;
+        [SerializeField] private string _verticalAxisName;        
 
         private Vector2 _position;
         private Vector2 _moveDirection;
 
         private float _inputX;
-        private float _inputY;
-
-        void Awake()
-        {
-            _rigidbody2D = GetComponent<Rigidbody2D>();            
-        }
-
-        void Start()
-        {
-            _position = Vector2.zero;
-            _moveDirection = Vector2.zero;
-        }
+        private float _inputY;              
 
         void Update()
         {
@@ -40,6 +29,15 @@ namespace ShootEmUp.Gameplay.Player.Actions.Movement
         void FixedUpdate()
         {
             Movement();
+        }
+
+        public override void InitialSettings()
+        {
+            Identity = GetComponent<PlayerIdentity>();            
+
+            _position = Vector2.zero;
+
+            _moveDirection = Vector2.zero;
         }
 
         private void MovementInput() 
@@ -54,12 +52,12 @@ namespace ShootEmUp.Gameplay.Player.Actions.Movement
             _moveDirection.y = _inputY * _velocity * Time.deltaTime;            
         }
 
-        private void Movement() 
+        private void Movement()
         {
             _position.x = transform.position.x;
             _position.y = transform.position.y;
 
-            _rigidbody2D.MovePosition(_position + _moveDirection);           
-        }        
+            Identity.EntityRigidbody2D.MovePosition(_position + _moveDirection);           
+        }
     }
 }
