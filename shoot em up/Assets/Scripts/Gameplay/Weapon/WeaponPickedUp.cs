@@ -2,61 +2,54 @@ using UnityEngine;
 using System;
 
 using ShootEmUp.Gameplay.Interfaces;
-using Unity.VisualScripting;
+using ShootEmUp.Gameplay.Identity;
 
 namespace ShootEmUp.Gameplay.Weapon 
 {
+    [RequireComponent(typeof(WeaponIdentity))]
     public class WeaponPickedUp : MonoBehaviour, IPickable
     {
-        private Transform _target;
+        private IActionable _onPickedUpBehaviour;
+        
+        private WeaponIdentity _identity;
+
+        public event Action<Transform> OnWeaponPickedUpWithTransform;
 
         public event Action OnWeaponPickedUp;
 
         public event Action OnWeaponDropped;
 
-        public Transform Target 
+        void Awake()
         {
-            set 
-            { 
-                _target = value;
+            _identity = GetComponent<WeaponIdentity>();
 
-                if (_target == null) 
-                {
-                    OnWeaponDropped?.Invoke();
-                }
-                else 
-                {
-                    OnWeaponPickedUp?.Invoke();
-                }
-            }
+            DroppedDown();
+        }
+
+        void LateUpdate()
+        {
+            _onPickedUpBehaviour?.DoAction();
         }
 
         public void PickedUp(GameObject objectThatPickedUp)
         {
-            Target = objectThatPickedUp.transform;            
-        }    
-
-        void LateUpdate()
-        {
-            FollowTarget();
-
-            //Levitate();
-        }
-
-        void FollowTarget() 
-        {
-            if (_target != null) 
+            if (_onPickedUpBehaviour != (IActionable)_identity.Levitation) 
             {
-                transform.position = _target.transform.position;
+                _onPickedUpBehaviour = _identity.Levitation;
             }
-        }
 
-        void Levitate() //Levitate in the air 
+            OnWeaponPickedUpWithTransform?.Invoke(objectThatPickedUp.transform);
+            OnWeaponPickedUp?.Invoke();
+        } 
+        
+        public void DroppedDown()
         {
-            if (_target == null) 
+            if (_onPickedUpBehaviour != (IActionable)_identity.FollowingObject)
             {
-                transform.position += Vector3.up * Time.deltaTime;
-            }
+                _onPickedUpBehaviour = _identity.FollowingObject;
+            }            
+
+            OnWeaponDropped?.Invoke();
         }
     }
 }

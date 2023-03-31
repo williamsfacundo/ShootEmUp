@@ -4,6 +4,8 @@ namespace ShootEmUp.Gameplay.Interfaces
 {
     public interface IPickable
     {
-        void PickedUp(GameObject objectThatPickedUp);            
+        public void PickedUp(GameObject objectThatPickedUp);
+
+        public void DroppedDown();
     }
 }

@@ -8,6 +8,7 @@ using ShootEmUp.Gameplay.Weapon;
 namespace ShootEmUp.Gameplay.Identity 
 {
     [RequireComponent(typeof(WeaponBulletInstantiator), typeof(WeaponDimensions), typeof(WeaponPickedUp))]
+    [RequireComponent(typeof(WeaponLevitation), typeof(WeaponFollowingObject))]
     public class WeaponIdentity : IdentityObject
     {
         [SerializeField] private WeaponStats _weaponStats;
@@ -19,6 +20,10 @@ namespace ShootEmUp.Gameplay.Identity
         private WeaponDimensions _dimensions;
 
         private WeaponPickedUp _pickedUp;
+
+        private WeaponLevitation _levitation;
+
+        private WeaponFollowingObject _followingObject;
 
         public WeaponBulletInstantiator BulletsInstantiator 
         {
@@ -60,6 +65,22 @@ namespace ShootEmUp.Gameplay.Identity
             }
         }
 
+        public WeaponLevitation Levitation 
+        {
+            get 
+            {
+                return _levitation;
+            }
+        }
+
+        public WeaponFollowingObject FollowingObject 
+        {
+            get 
+            { 
+                return _followingObject;
+            }
+        }
+
         void Awake()
         {
             if (_weaponStats == null) 
@@ -78,6 +99,10 @@ namespace ShootEmUp.Gameplay.Identity
             _dimensions = GetComponent<WeaponDimensions>();
 
             _pickedUp = GetComponent<WeaponPickedUp>();
+
+            _levitation = GetComponent<WeaponLevitation>();
+
+            _followingObject = GetComponent<WeaponFollowingObject>();
         }
         
         private void GenerateShootingScriptComponent() 
