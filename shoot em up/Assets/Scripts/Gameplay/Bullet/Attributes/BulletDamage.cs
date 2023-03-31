@@ -12,7 +12,7 @@ namespace ShootEmUp.Gameplay.Bullet.Attributes
         {
             set 
             { 
-                _damage = value; 
+                _damage = value;
             }
         }
 

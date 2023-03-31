@@ -23,13 +23,13 @@ namespace ShootEmUp.Gameplay.Weapon.Shooting
 
                 _bulletIdentity = _instantiatedBullet.GetComponent<BulletIdentity>();
 
-                _bulletIdentity.BulletMovementObject.MoveDirection = bulletDirection;
+                _bulletIdentity.Movement.MoveDirection = bulletDirection;
 
-                _bulletIdentity.BulletMovementObject.MoveSpeed = bulletStats._bulletSpeed;
+                _bulletIdentity.Movement.MoveSpeed = bulletStats._bulletSpeed;
 
-                _bulletIdentity.BulletDeactivatorObject.BulletRange = bulletStats._bulletRange;
+                _bulletIdentity.Deactivator.BulletRange = bulletStats._bulletRange;
 
-                _bulletIdentity.BulletDamageObject.Damage = bulletStats._bulletDamage;
+                _bulletIdentity.Damage.Damage = bulletStats._bulletDamage;
             }
         }               
     }

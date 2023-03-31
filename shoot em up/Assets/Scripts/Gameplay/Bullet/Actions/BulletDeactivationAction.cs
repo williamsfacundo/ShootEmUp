@@ -5,10 +5,8 @@ using ShootEmUp.Gameplay.Identity;
 namespace ShootEmUp.Gameplay.Bullet.Actions
 {
     [RequireComponent(typeof(BulletIdentity))]
-    public class BulletDeactivationAction : MonoBehaviour
+    public class BulletDeactivationAction : BulletBase
     {
-        private BulletIdentity _bulletIdentity;
-
         private float _bulletRange;
 
         public float BulletRange
@@ -17,28 +15,28 @@ namespace ShootEmUp.Gameplay.Bullet.Actions
             {
                 _bulletRange = value;
             }
-        }
-
-        void Awake()
-        {
-            _bulletIdentity = GetComponent<BulletIdentity>();
-        }
+        }        
 
         void FixedUpdate()
         {
             DeactivateBullet();
         }
 
+        public override void InitialSettings()
+        {
+            Identity = GetComponent<BulletIdentity>();
+        }
+
         private void DeactivateBullet()
         {
             if (_bulletRange > 0.0f)
             {
-                _bulletRange -= _bulletIdentity.BulletMovementObject.MoveDistance.magnitude;
+                _bulletRange -= Identity.Movement.MoveDistance.magnitude;
             }
             else
             {
                 Destroy(gameObject);
             }
-        }
+        }                
     }
 }

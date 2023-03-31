@@ -5,10 +5,8 @@ using ShootEmUp.ScriptsUtils;
 
 namespace ShootEmUp.Gameplay.Bullet.Actions
 {   
-    public class BulletMovementAction : MonoBehaviour
+    public class BulletMovementAction : BulletBase
     {
-        private BulletIdentity _bulletIdentity;
-
         private Vector3 _moveDirection;
 
         private Vector3 _moveDistance;
@@ -39,21 +37,21 @@ namespace ShootEmUp.Gameplay.Bullet.Actions
             }
         }
 
-        void Awake()
-        {
-            _bulletIdentity= GetComponent<BulletIdentity>();
-        }
-
         void Start()
         {
-            _bulletIdentity.EntityRigidbody2D.MoveRotation(Utils.GetAngleFromVectorFloat(_moveDirection));
+            Identity.EntityRigidbody2D.MoveRotation(Utils.GetAngleFromVectorFloat(_moveDirection));
         }
 
         void FixedUpdate()
         {
             _moveDistance = _moveDirection * _moveSpeed * Time.deltaTime;
 
-            _bulletIdentity.EntityRigidbody2D.MovePosition(transform.position + _moveDistance);
+            Identity.EntityRigidbody2D.MovePosition(transform.position + _moveDistance);
+        }
+
+        public override void InitialSettings()
+        {
+            Identity = GetComponent<BulletIdentity>();
         }
     }
 }

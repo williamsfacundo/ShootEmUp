@@ -17,7 +17,7 @@ namespace ShootEmUp.Gameplay.Identity
 
         private BulletDamage _bulletDamage;
 
-        public BulletMovementAction BulletMovementObject 
+        public BulletMovementAction Movement 
         {
             get 
             {
@@ -25,7 +25,7 @@ namespace ShootEmUp.Gameplay.Identity
             }
         }
 
-        public BulletDeactivationAction BulletDeactivatorObject 
+        public BulletDeactivationAction Deactivator 
         {
             get 
             {
@@ -33,7 +33,7 @@ namespace ShootEmUp.Gameplay.Identity
             }
         }        
 
-        public BulletCollisionAction BulletCollisionObject 
+        public BulletCollisionAction Collision 
         {
             get 
             {
@@ -41,7 +41,7 @@ namespace ShootEmUp.Gameplay.Identity
             }
         }
 
-        public BulletDamage BulletDamageObject 
+        public BulletDamage Damage 
         {
             get 
             {
@@ -60,6 +60,10 @@ namespace ShootEmUp.Gameplay.Identity
             _bulletCollision = GetComponent<BulletCollisionAction>();
 
             _bulletDamage = GetComponent<BulletDamage>();
+
+            _bulletMovement.InitialSettings();
+
+            _bulletDeactivator.InitialSettings();
         }
     }
 }
