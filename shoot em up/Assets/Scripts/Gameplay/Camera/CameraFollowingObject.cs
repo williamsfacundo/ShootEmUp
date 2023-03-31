@@ -25,6 +25,8 @@ namespace ShootEmUp.Gameplay.Camera
 
         private float _distanceAfterMoving;
 
+        private bool _cameraHasTarget;
+
         private void Awake()
         {
             SetTarget();                        
@@ -37,7 +39,10 @@ namespace ShootEmUp.Gameplay.Camera
 
         void LateUpdate()
         {
-            UpdatePosition();
+            if (_cameraHasTarget) 
+            {
+                UpdatePosition();
+            }
         }
 
         private void SetTarget() 
@@ -52,8 +57,10 @@ namespace ShootEmUp.Gameplay.Camera
                     {
                         Debug.LogError("There is no player on my scene!");
 
-                        Destroy(this);
+                        _cameraHasTarget = false;
                     }
+
+                    _cameraHasTarget = true;
 
                     break;
             }
