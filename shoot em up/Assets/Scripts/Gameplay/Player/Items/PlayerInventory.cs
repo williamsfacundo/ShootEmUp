@@ -9,9 +9,11 @@ namespace ShootEmUp.Gameplay.Player.Items
     {
         [SerializeField] private GameObject _initialWeaponPrefab;
 
+        public event Action OnWeaponChanged;
+
         private GameObject _weapon;
 
-        public event Action OnWeaponChanged;
+        private WeaponIdentity _weaponIdentityAux;
 
         public GameObject Weapon 
         {
@@ -21,7 +23,7 @@ namespace ShootEmUp.Gameplay.Player.Items
             }
         }
 
-        void Awake()
+        void Start()
         {
             if (_initialWeaponPrefab == null) 
             {
@@ -61,7 +63,11 @@ namespace ShootEmUp.Gameplay.Player.Items
         {
             _weapon = Instantiate(_initialWeaponPrefab, transform.position, Quaternion.identity);
 
-            _weapon.GetComponent<WeaponIdentity>().PickedUp.PickedUp(gameObject);
+            _weaponIdentityAux = _weapon.GetComponent<WeaponIdentity>();
+
+            _weaponIdentityAux.PickedUp.PickedUp(gameObject);
+
+            _weaponIdentityAux.Dimensions.ApplyOffsetToSpritePosition();
         }
 
         private bool IsGameObjectAWeapon(GameObject gameObject) 

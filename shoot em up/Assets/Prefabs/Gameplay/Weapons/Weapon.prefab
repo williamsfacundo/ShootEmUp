@@ -150,6 +150,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _front: {fileID: 5415691910216211137}
   _back: {fileID: 8232510796512190428}
+  _spriteTransform: {fileID: 2315911231692315730}
+  _spriteXOffset: 0.7
 --- !u!114 &8370746191174542012
 MonoBehaviour:
   m_ObjectHideFlags: 0
