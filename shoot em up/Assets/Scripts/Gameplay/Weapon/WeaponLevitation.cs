@@ -4,12 +4,9 @@ using ShootEmUp.Gameplay.Interfaces;
 using ShootEmUp.Gameplay.Identity;
 
 namespace ShootEmUp.Gameplay.Weapon 
-{
-    [RequireComponent(typeof(WeaponIdentity))]
-    public class WeaponLevitation : MonoBehaviour, IActionable
+{    
+    public class WeaponLevitation : WeaponBase, IActionable
     {
-        private WeaponIdentity _identity;
-
         private Vector3 _initialPosition;
 
         private Vector3 _destinyPosition;
@@ -22,25 +19,11 @@ namespace ShootEmUp.Gameplay.Weapon
 
         private float _lerpTime;
 
-        private bool _goingUp;
-
-        void Awake()
-        {
-            _identity = GetComponent<WeaponIdentity>();
-
-            _identity.PickedUp.OnWeaponDropped += ResetLevitation;
-        }
-
-        void Start()
-        {
-            ResetLevitation();
-
-            _auxVector = Vector3.zero;
-        }
+        private bool _goingUp;        
 
         void OnDestroy()
         {
-            _identity.PickedUp.OnWeaponDropped -= ResetLevitation;
+            Identity.PickedUp.OnWeaponDropped -= ResetLevitation;
         }
 
         public void ResetLevitation()
@@ -57,6 +40,17 @@ namespace ShootEmUp.Gameplay.Weapon
         public void DoAction()
         {
             Levitate();
+        }
+
+        public override void InitialSettings()
+        {
+            Identity = GetComponent<WeaponIdentity>();
+
+            Identity.PickedUp.OnWeaponDropped += ResetLevitation;
+
+            ResetLevitation();
+
+            _auxVector = Vector3.zero;
         }
 
         private void Levitate()
@@ -90,6 +84,6 @@ namespace ShootEmUp.Gameplay.Weapon
                     _goingUp = true;
                 }
             }
-        }        
+        }
     }
 }

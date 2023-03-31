@@ -11,7 +11,7 @@ namespace ShootEmUp.Gameplay.Identity
     [RequireComponent(typeof(WeaponLevitation), typeof(WeaponFollowingObject))]
     public class WeaponIdentity : IdentityObject
     {
-        [SerializeField] private WeaponStats _weaponStats;
+        [SerializeField] private WeaponStats _weaponStats;       
 
         private WeaponBulletInstantiator _bulletsInstantiator;
 
@@ -92,6 +92,8 @@ namespace ShootEmUp.Gameplay.Identity
                 GenerateShootingScriptComponent();
             }
 
+            SetRigidbody2D();
+
             _bulletsInstantiator = GetComponent<WeaponBulletInstantiator>();
 
             _shootingAction = GetComponent<WeaponShootingAction>();
@@ -103,6 +105,21 @@ namespace ShootEmUp.Gameplay.Identity
             _levitation = GetComponent<WeaponLevitation>();
 
             _followingObject = GetComponent<WeaponFollowingObject>();
+
+            SetScriptsByOrder();
+        }     
+
+        private void SetScriptsByOrder() 
+        {
+            _followingObject.InitialSettings();
+
+            _levitation.InitialSettings();
+
+            _dimensions.InitialSettings();
+
+            _pickedUp.InitialSettings();
+
+            _shootingAction.InitialSettings();
         }
         
         private void GenerateShootingScriptComponent() 

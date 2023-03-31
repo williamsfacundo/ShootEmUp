@@ -52,7 +52,7 @@ namespace ShootEmUp.Gameplay.Identity
 
         void Awake()
         {
-            SetRigidbody2D();            
+            SetRigidbody2D();           
 
             _pullTheTriggerAction = GetComponent<PlayerPullTheTriggerAction>();
 

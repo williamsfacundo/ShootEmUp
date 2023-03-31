@@ -5,26 +5,16 @@ using ShootEmUp.Gameplay.Interfaces;
 using ShootEmUp.Gameplay.Identity;
 
 namespace ShootEmUp.Gameplay.Weapon 
-{
-    [RequireComponent(typeof(WeaponIdentity))]
-    public class WeaponPickedUp : MonoBehaviour, IPickable
+{    
+    public class WeaponPickedUp : WeaponBase, IPickable
     {
-        private IActionable _onPickedUpBehaviour;
-        
-        private WeaponIdentity _identity;
+        private IActionable _onPickedUpBehaviour;       
 
         public event Action<Transform> OnWeaponPickedUpWithTransform;
 
         public event Action OnWeaponPickedUp;
 
-        public event Action OnWeaponDropped;
-
-        void Awake()
-        {
-            _identity = GetComponent<WeaponIdentity>();
-
-            DroppedDown();
-        }
+        public event Action OnWeaponDropped;          
 
         void LateUpdate()
         {
@@ -33,23 +23,31 @@ namespace ShootEmUp.Gameplay.Weapon
 
         public void PickedUp(GameObject objectThatPickedUp)
         {
-            if (_onPickedUpBehaviour != (IActionable)_identity.Levitation) 
+            if (_onPickedUpBehaviour != (IActionable)Identity.FollowingObject)
             {
-                _onPickedUpBehaviour = _identity.Levitation;
-            }
+                _onPickedUpBehaviour = Identity.FollowingObject;
+            }            
 
             OnWeaponPickedUpWithTransform?.Invoke(objectThatPickedUp.transform);
+
             OnWeaponPickedUp?.Invoke();
         } 
         
         public void DroppedDown()
         {
-            if (_onPickedUpBehaviour != (IActionable)_identity.FollowingObject)
+            if (_onPickedUpBehaviour != (IActionable)Identity.Levitation)
             {
-                _onPickedUpBehaviour = _identity.FollowingObject;
-            }            
+                _onPickedUpBehaviour = Identity.Levitation;
+            }
 
             OnWeaponDropped?.Invoke();
+        }
+
+        public override void InitialSettings()
+        {
+            Identity = GetComponent<WeaponIdentity>();
+
+            DroppedDown();
         }
     }
 }

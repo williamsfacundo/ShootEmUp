@@ -1,11 +1,9 @@
+using ShootEmUp.Gameplay.Identity;
 using UnityEngine;
 
-using ShootEmUp.Gameplay.Identity;
-
 namespace ShootEmUp.Gameplay.Weapon 
-{
-    [RequireComponent(typeof(WeaponIdentity))]
-    public class WeaponDimensions : MonoBehaviour
+{    
+    public class WeaponDimensions : WeaponBase
     {
         [SerializeField] private Transform _front;
 
@@ -13,9 +11,7 @@ namespace ShootEmUp.Gameplay.Weapon
 
         [SerializeField] private Transform _spriteTransform;
 
-        [SerializeField] [Range(0.1f, 10.0f)] private float _spriteXOffset;
-
-        private WeaponIdentity _identity;
+        [SerializeField] [Range(0.1f, 10.0f)] private float _spriteXOffset;        
 
         private Vector3 _originPosition;
 
@@ -33,42 +29,13 @@ namespace ShootEmUp.Gameplay.Weapon
             { 
                 return _back;
             }
-        }        
-
-        void Awake()
-        {
-            if (_front == null) 
-            {
-                Debug.LogError("There is no front transform!");
-            }
-
-            if (_back == null) 
-            {
-                Debug.LogError("There is no back transform!");
-            }
-
-            if (_spriteTransform == null) 
-            {
-                Debug.LogError("There is no given sprite transform!");
-            }
-
-            _identity = GetComponent<WeaponIdentity>();
-        }        
-
-        void Start()
-        {
-            _identity.PickedUp.OnWeaponPickedUp += ApplyOffsetToSpritePosition;
-
-            _identity.PickedUp.OnWeaponDropped += SetSpritePositionToOrigin;
-
-            _originPosition = _spriteTransform.position;            
         }
 
         void OnDestroy()
         {
-            _identity.PickedUp.OnWeaponPickedUp -= ApplyOffsetToSpritePosition;
+            Identity.PickedUp.OnWeaponPickedUp -= ApplyOffsetToSpritePosition;
 
-            _identity.PickedUp.OnWeaponDropped -= SetSpritePositionToOrigin;
+            Identity.PickedUp.OnWeaponDropped -= SetSpritePositionToOrigin;
         }
 
         public void ApplyOffsetToSpritePosition() 
@@ -79,6 +46,32 @@ namespace ShootEmUp.Gameplay.Weapon
         public void SetSpritePositionToOrigin() 
         {
             _spriteTransform.position = _originPosition;
+        }
+
+        public override void InitialSettings()
+        {
+            if (_front == null)
+            {
+                Debug.LogError("There is no front transform!");
+            }
+
+            if (_back == null)
+            {
+                Debug.LogError("There is no back transform!");
+            }
+
+            if (_spriteTransform == null)
+            {
+                Debug.LogError("There is no given sprite transform!");
+            }
+
+            Identity = GetComponent<WeaponIdentity>();
+
+            Identity.PickedUp.OnWeaponPickedUp += ApplyOffsetToSpritePosition;
+
+            Identity.PickedUp.OnWeaponDropped += SetSpritePositionToOrigin;
+
+            _originPosition = _spriteTransform.position;
         }
     }
 }

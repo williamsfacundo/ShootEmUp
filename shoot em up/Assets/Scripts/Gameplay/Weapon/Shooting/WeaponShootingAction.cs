@@ -2,32 +2,11 @@ using ShootEmUp.Gameplay.Identity;
 using UnityEngine;
 
 namespace ShootEmUp.Gameplay.Weapon.Shooting
-{
-    [RequireComponent(typeof(WeaponIdentity))]
-    public abstract class WeaponShootingAction : MonoBehaviour
+{    
+    public abstract class WeaponShootingAction : WeaponBase
     {
-        private WeaponIdentity _weaponIdentity;
-
         private float _nextShotAvailableTimer;
-
-        protected WeaponIdentity Identity 
-        {
-            get 
-            { 
-                return _weaponIdentity;
-            }
-        }        
-
-        void Awake()
-        {
-            _weaponIdentity = GetComponent<WeaponIdentity>();
-        }
-
-        void Start()
-        {
-            ResetTimer();            
-        }
-
+        
         void Update()
         {
             DecreaseTimer();
@@ -35,9 +14,16 @@ namespace ShootEmUp.Gameplay.Weapon.Shooting
 
         public abstract void Shoot();
 
+        public override void InitialSettings()
+        {
+            Identity = GetComponent<WeaponIdentity>();
+
+            ResetTimer();
+        }
+
         private Vector3 CalculateBulletDirection()
         {
-            return (_weaponIdentity.Dimensions.Front.position - _weaponIdentity.Dimensions.Back.position).normalized;
+            return (Identity.Dimensions.Front.position - Identity.Dimensions.Back.position).normalized;
         }
 
         private void DecreaseTimer() 
@@ -55,13 +41,13 @@ namespace ShootEmUp.Gameplay.Weapon.Shooting
 
         protected void InstantiateBullet() 
         {
-            _weaponIdentity.BulletsInstantiator.InstantiateBullet(_weaponIdentity.Stats._bulletStats, 
-                _weaponIdentity.Dimensions.Front.position, CalculateBulletDirection());
+            Identity.BulletsInstantiator.InstantiateBullet(Identity.Stats._bulletStats, 
+                Identity.Dimensions.Front.position, CalculateBulletDirection());
         }
 
         protected void ResetTimer()
         {
-            _nextShotAvailableTimer = _weaponIdentity.Stats._fireRate;
-        }
+            _nextShotAvailableTimer = Identity.Stats._fireRate;
+        }        
     }
 }

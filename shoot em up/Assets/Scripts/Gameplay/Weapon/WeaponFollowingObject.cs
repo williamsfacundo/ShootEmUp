@@ -4,23 +4,18 @@ using ShootEmUp.Gameplay.Interfaces;
 using ShootEmUp.Gameplay.Identity;
 
 namespace ShootEmUp.Gameplay.Weapon 
-{
-    [RequireComponent(typeof(WeaponIdentity))]
-    public class WeaponFollowingObject : MonoBehaviour, IActionable
+{    
+    public class WeaponFollowingObject : WeaponBase, IActionable
     {
-        private WeaponIdentity _identity;
-
         private Transform _target;
 
-        void Awake()
+        void OnDestroy()
         {
-            _identity = GetComponent<WeaponIdentity>();
-
-            _identity.PickedUp.OnWeaponPickedUpWithTransform += SetTarget;
+            Identity.PickedUp.OnWeaponPickedUpWithTransform -= SetTarget;
         }
 
         public void SetTarget(Transform target)
-        {
+        {            
             if (target != null)
             {
                 _target = target.transform;
@@ -30,6 +25,13 @@ namespace ShootEmUp.Gameplay.Weapon
         public void DoAction()
         {
             FollowTarget();
+        }
+
+        public override void InitialSettings()
+        {
+            Identity = GetComponent<WeaponIdentity>();
+
+            Identity.PickedUp.OnWeaponPickedUpWithTransform += SetTarget;
         }
 
         private void FollowTarget() 
