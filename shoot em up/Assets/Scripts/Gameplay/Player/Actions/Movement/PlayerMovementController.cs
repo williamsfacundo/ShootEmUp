@@ -14,21 +14,21 @@ namespace ShootEmUp.Gameplay.Player.Actions.Movement
         [SerializeField] private string _verticalAxisName;        
 
         private Vector2 _position;
-        private Vector2 _moveDirection;
+        private Vector3 _moveDirection;
 
         private float _inputX;
-        private float _inputY;              
+        private float _inputY;        
 
         void Update()
         {
             MovementInput();
 
-            CalculateMoveDirection();
+            CalculateMoveDirection();            
         }
 
         void FixedUpdate()
         {
-            Movement();
+            Movement();            
         }
 
         public override void InitialSettings()
@@ -37,12 +37,12 @@ namespace ShootEmUp.Gameplay.Player.Actions.Movement
 
             _position = Vector2.zero;
 
-            _moveDirection = Vector2.zero;
+            _moveDirection = Vector3.zero;
         }
 
         private void MovementInput() 
         {
-            _inputX = Input.GetAxisRaw(_horizontalAxisName);
+            _inputX = Input.GetAxisRaw(_horizontalAxisName);            
             _inputY = Input.GetAxisRaw(_verticalAxisName);
         }
 
@@ -57,7 +57,7 @@ namespace ShootEmUp.Gameplay.Player.Actions.Movement
             _position.x = transform.position.x;
             _position.y = transform.position.y;
 
-            Identity.EntityRigidbody2D.MovePosition(_position + _moveDirection);           
+            transform.position += _moveDirection;                      
         }
     }
 }
