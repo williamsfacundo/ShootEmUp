@@ -53,6 +53,20 @@ namespace ShootEmUp.Gameplay.Identity
         {
             SetRigidbody2D();
 
+            GetComponents();
+
+            SetScripts();
+        }
+
+        protected override void SetScripts()
+        {
+            _bulletMovement.InitialSettings();
+
+            _bulletDeactivator.InitialSettings();            
+        }
+
+        protected override void GetComponents()
+        {
             _bulletMovement = GetComponent<BulletMovementAction>();
 
             _bulletDeactivator = GetComponent<BulletDeactivationAction>();
@@ -60,20 +74,6 @@ namespace ShootEmUp.Gameplay.Identity
             _bulletCollision = GetComponent<BulletCollisionAction>();
 
             _bulletDamage = GetComponent<BulletDamage>();
-
-            _bulletMovement.InitialSettings();
-
-            _bulletDeactivator.InitialSettings();           
-        }
-
-        protected override void SetScripts()
-        {
-            
-        }
-
-        protected override void GetComponents()
-        {
-            
         }
     }
 }

@@ -1,14 +1,9 @@
 using UnityEngine;
 
-using ShootEmUp.Gameplay.Identity;
-using ShootEmUp.Gameplay.Camera.Enums;
-
 namespace ShootEmUp.Gameplay.Camera 
 {
     public class CameraFollowingObject : MonoBehaviour
     {
-        [SerializeField] private CameraTargetEnum _cameraTarget;
-
         [SerializeField] [Range(1.0f, 10.0f)] private float _followingVelocity;
 
         [SerializeField] [Range(-15.0f, -1.0f)] private float _initialZPosition;
@@ -25,12 +20,7 @@ namespace ShootEmUp.Gameplay.Camera
 
         private float _distanceAfterMoving;
 
-        private bool _cameraHasTarget;
-
-        private void Awake()
-        {
-            SetTarget();                        
-        }
+        private bool _cameraHasTarget;        
 
         void Start()
         {   
@@ -45,25 +35,9 @@ namespace ShootEmUp.Gameplay.Camera
             }
         }
 
-        private void SetTarget() 
+        public void SetTarget(Transform targetTransform) 
         {
-            switch (_cameraTarget) 
-            {
-                case CameraTargetEnum.Player:
-
-                    _targetTransform = FindObjectOfType<PlayerIdentity>().transform;
-
-                    if (_targetTransform == null) 
-                    {
-                        Debug.LogError("There is no player on my scene!");
-
-                        _cameraHasTarget = false;
-                    }
-
-                    _cameraHasTarget = true;
-
-                    break;
-            }
+            _targetTransform = targetTransform;
         }
 
         private void SetInitialPosition() 
