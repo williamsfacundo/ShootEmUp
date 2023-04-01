@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 namespace ShootEmUp.Gameplay.WorldGeneration 
@@ -27,6 +28,8 @@ namespace ShootEmUp.Gameplay.WorldGeneration
 
         void Start()
         {
+            Cursor.visible = false;
+
             GenerateWorld();
         }
 
