@@ -6,7 +6,21 @@ namespace ShootEmUp.Gameplay.Identity
     {
         void Awake()
         {
-            SetRigidbody2D();
+        }
+
+        public override void InitialSettings()
+        {
+            SetRigidbody2D();            
+        }
+
+        protected override void SetScripts()
+        {
+            
+        }
+
+        protected override void GetComponents()
+        {
+            
         }
     }
 }

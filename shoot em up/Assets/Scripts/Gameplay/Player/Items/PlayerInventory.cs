@@ -21,7 +21,15 @@ namespace ShootEmUp.Gameplay.Player.Items
             {
                 return _weapon;
             }
-        }        
+        }
+
+        public WeaponIdentity WeaponIdentityAux 
+        {
+            get 
+            { 
+                return _weaponIdentityAux;
+            }
+        }
 
         public void SwitchWeapon(GameObject newWeapon) 
         {
@@ -67,7 +75,7 @@ namespace ShootEmUp.Gameplay.Player.Items
 
             _weaponIdentityAux = _weapon.GetComponent<WeaponIdentity>();
 
-            _weaponIdentityAux.PickedUp.PickedUp(gameObject);            
+            //_weaponIdentityAux.PickedUp.PickedUp(gameObject);            
         }
 
         private bool IsGameObjectAWeapon(GameObject gameObject) 

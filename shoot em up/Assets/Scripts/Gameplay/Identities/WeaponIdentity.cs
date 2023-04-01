@@ -79,21 +79,41 @@ namespace ShootEmUp.Gameplay.Identity
             { 
                 return _followingObject;
             }
-        }
+        }             
 
-        void Awake()
+        public override void InitialSettings()
         {
-            if (_weaponStats == null) 
+            if (_weaponStats == null)
             {
                 Debug.Log("Missing serialize field weapon stats!");
             }
-            else 
+            else
             {
                 GenerateShootingScriptComponent();
             }
 
             SetRigidbody2D();
 
+            GetComponents();
+
+            SetScripts();
+        }
+
+        protected override void SetScripts() 
+        {
+            _followingObject.InitialSettings();
+
+            _levitation.InitialSettings();
+
+            _dimensions.InitialSettings();
+
+            _pickedUp.InitialSettings();
+
+            _shootingAction.InitialSettings();
+        }
+
+        protected override void GetComponents()
+        {
             _bulletsInstantiator = GetComponent<WeaponBulletInstantiator>();
 
             _shootingAction = GetComponent<WeaponShootingAction>();
@@ -105,21 +125,6 @@ namespace ShootEmUp.Gameplay.Identity
             _levitation = GetComponent<WeaponLevitation>();
 
             _followingObject = GetComponent<WeaponFollowingObject>();
-
-            SetScriptsByOrder();
-        }     
-
-        private void SetScriptsByOrder() 
-        {
-            _followingObject.InitialSettings();
-
-            _levitation.InitialSettings();
-
-            _dimensions.InitialSettings();
-
-            _pickedUp.InitialSettings();
-
-            _shootingAction.InitialSettings();
         }
         
         private void GenerateShootingScriptComponent() 

@@ -1,9 +1,11 @@
 using UnityEngine;
 
+using ShootEmUp.Gameplay.Interfaces;
+
 namespace ShootEmUp.Gameplay.Identity 
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public abstract class IdentityObject : MonoBehaviour
+    public abstract class IdentityObject : MonoBehaviour, IInitiallySettable
     {
         private Rigidbody2D _entityRigidbody2D;
 
@@ -14,6 +16,12 @@ namespace ShootEmUp.Gameplay.Identity
                 return _entityRigidbody2D;
             }
         }
+
+        public abstract void InitialSettings();
+
+        protected abstract void SetScripts();
+
+        protected abstract void GetComponents();
 
         protected void SetRigidbody2D() 
         {

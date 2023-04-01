@@ -60,10 +60,30 @@ namespace ShootEmUp.Gameplay.Identity
             }
         }
 
-        void Awake()
+        public override void InitialSettings()
         {
-            SetRigidbody2D();           
+            SetRigidbody2D();
 
+            GetComponents();
+
+            SetScripts();
+        }
+
+        protected override void SetScripts()
+        {
+            _inventory.InitialSettings();
+
+            _inventory.WeaponIdentityAux.InitialSettings();
+
+            _useInventoryItem.InitialSettings();
+
+            _aimWeapon.InitialSettings();
+
+            _movementController.InitialSettings();
+        }
+
+        protected override void GetComponents()
+        {
             _pullTheTriggerAction = GetComponent<PlayerPullTheTriggerAction>();
 
             _movementController = GetComponent<PlayerMovementController>();
@@ -72,15 +92,7 @@ namespace ShootEmUp.Gameplay.Identity
 
             _inventory = GetComponent<PlayerInventory>();
 
-            _useInventoryItem = GetComponent<PlayerUseInventoryItem>();;
-
-            _inventory.InitialSettings();
-
-            _useInventoryItem.InitialSettings();
-
-            _aimWeapon.InitialSettings();
-
-            _movementController.InitialSettings();
+            _useInventoryItem = GetComponent<PlayerUseInventoryItem>();
         }
     }
 }
