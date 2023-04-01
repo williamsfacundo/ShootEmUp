@@ -6,20 +6,28 @@ namespace ShootEmUp.Gameplay.Weapon.Shooting
     public abstract class WeaponShootingAction : WeaponBase
     {
         private float _nextShotAvailableTimer;
-        
+
+        public float NextShotAvailableTimer 
+        {
+            set 
+            {
+                _nextShotAvailableTimer = value;
+            }
+        }
+
         void Update()
         {
             DecreaseTimer();
         }
 
-        public abstract void Shoot();
+        public abstract void ShootMechanic();
 
         public override void InitialSettings()
         {
             Identity = GetComponent<WeaponIdentity>();
 
             ResetTimer();
-        }
+        }       
 
         private Vector3 CalculateBulletDirection()
         {
@@ -39,9 +47,9 @@ namespace ShootEmUp.Gameplay.Weapon.Shooting
             return _nextShotAvailableTimer <= 0.0f;
         }
 
-        protected void InstantiateBullet() 
+        protected bool ShootBullet() 
         {
-            Identity.BulletsInstantiator.InstantiateBullet(Identity.Stats._bulletStats, 
+            return Identity.BulletsInstantiator.ActivateBullet(Identity.Stats._bulletStats, 
                 Identity.Dimensions.Front.position, CalculateBulletDirection());
         }
 

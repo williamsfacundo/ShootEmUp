@@ -15,7 +15,7 @@ namespace ShootEmUp.Gameplay.Player.Actions.Combat
 
         void UseInventoryItem() 
         {
-            Identity.Inventory.Weapon.GetComponent<WeaponSingleShooting>().Shoot();
+            Identity.Inventory.Weapon.GetComponent<WeaponSingleShooting>().ShootMechanic();
         }
 
         public override void InitialSettings()

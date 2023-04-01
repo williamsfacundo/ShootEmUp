@@ -7,13 +7,13 @@ using ShootEmUp.Gameplay.Weapon;
 
 namespace ShootEmUp.Gameplay.Identity 
 {
-    [RequireComponent(typeof(WeaponBulletInstantiator), typeof(WeaponDimensions), typeof(WeaponPickedUp))]
-    [RequireComponent(typeof(WeaponLevitation), typeof(WeaponFollowingObject))]
+    [RequireComponent(typeof(WeaponBulletActivator), typeof(WeaponDimensions), typeof(WeaponPickedUp))]
+    [RequireComponent(typeof(WeaponLevitation), typeof(WeaponFollowingObject), typeof(WeaponBulletsPool))]
     public class WeaponIdentity : IdentityObject
     {
         [SerializeField] private WeaponStats _weaponStats;       
 
-        private WeaponBulletInstantiator _bulletsInstantiator;
+        private WeaponBulletActivator _bulletsInstantiator;
 
         private WeaponShootingAction _shootingAction;
 
@@ -25,7 +25,9 @@ namespace ShootEmUp.Gameplay.Identity
 
         private WeaponFollowingObject _followingObject;
 
-        public WeaponBulletInstantiator BulletsInstantiator 
+        private WeaponBulletsPool _bulletPool;
+
+        public WeaponBulletActivator BulletsInstantiator 
         {
             get 
             {
@@ -79,7 +81,15 @@ namespace ShootEmUp.Gameplay.Identity
             { 
                 return _followingObject;
             }
-        }             
+        }          
+        
+        public WeaponBulletsPool BulletPool 
+        {
+            get 
+            {
+                return _bulletPool;
+            }
+        }
 
         public override void InitialSettings()
         {
@@ -101,6 +111,8 @@ namespace ShootEmUp.Gameplay.Identity
 
         protected override void SetScripts() 
         {
+            _bulletPool.InitialSettings();
+
             _followingObject.InitialSettings();
 
             _levitation.InitialSettings();
@@ -114,7 +126,7 @@ namespace ShootEmUp.Gameplay.Identity
 
         protected override void GetComponents()
         {
-            _bulletsInstantiator = GetComponent<WeaponBulletInstantiator>();
+            _bulletsInstantiator = GetComponent<WeaponBulletActivator>();
 
             _shootingAction = GetComponent<WeaponShootingAction>();
 
@@ -125,6 +137,8 @@ namespace ShootEmUp.Gameplay.Identity
             _levitation = GetComponent<WeaponLevitation>();
 
             _followingObject = GetComponent<WeaponFollowingObject>();
+
+            _bulletPool = GetComponent<WeaponBulletsPool>();
         }
         
         private void GenerateShootingScriptComponent() 

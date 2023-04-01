@@ -1,17 +1,23 @@
-using System;
-using UnityEngine;
-
 namespace ShootEmUp.Gameplay.Weapon.Shooting 
 {
     public class WeaponSingleShooting : WeaponShootingAction
     {
-        public override void Shoot() 
+        private bool _bulletWasShot;
+
+        public override void ShootMechanic() 
         {
             if (CanShoot()) 
             {
-                InstantiateBullet();
+                _bulletWasShot = ShootBullet();
 
-                ResetTimer();
+                if (_bulletWasShot) 
+                {
+                    ResetTimer();
+                }
+                else 
+                {
+                    Identity.ShootingAction.NextShotAvailableTimer = 0.0f;
+                }
             }
         }        
     }
