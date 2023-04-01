@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e376a6eb6fe0c6646ad7219458a49332, type: 3}
   m_Name: ak47_stats
   m_EditorClassIdentifier: 
-  _weaponPrefab: {fileID: 2315911232555427952, guid: 2fe687966157e3f4eaf0757703d075e3, type: 3}
   _bulletStats: {fileID: 11400000, guid: bbf169ca300ee584a89e23d0884d3dde, type: 2}
   _weaponShootingType: 0
   _fireRate: 0.4
   _reloadSpeed: 1.2
   _bulletsShotWhenFire: 1
-  _magazineCapacity: 30
+  _magazineCapacity: 15
   _maxAmmo: 230

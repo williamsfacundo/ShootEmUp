@@ -26,6 +26,8 @@ namespace ShootEmUp.Gameplay.Weapon.Shooting
 
                 _bulletIdentity = _bullet.GetComponent<BulletIdentity>();
 
+                _bulletIdentity.gameObject.transform.position = spawnPosition;
+
                 _bulletIdentity.Movement.MoveDirection = bulletDirection;
 
                 _bulletIdentity.Movement.MoveSpeed = bulletStats._bulletSpeed;

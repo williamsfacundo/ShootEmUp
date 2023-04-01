@@ -69,13 +69,17 @@ namespace ShootEmUp.Gameplay.Player.Items
             }
         }
 
+        public void WeaponPickedUp() 
+        {
+            _weaponIdentityAux.PickedUp.PickedUp(gameObject);
+        }
+
         private void SetInitialWeapon() 
         {
             _weapon = Instantiate(_initialWeaponPrefab, transform.position, Quaternion.identity);
 
             _weaponIdentityAux = _weapon.GetComponent<WeaponIdentity>();
 
-            //_weaponIdentityAux.PickedUp.PickedUp(gameObject);            
         }
 
         private bool IsGameObjectAWeapon(GameObject gameObject) 

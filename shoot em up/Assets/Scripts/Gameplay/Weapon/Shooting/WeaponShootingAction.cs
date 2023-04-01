@@ -49,7 +49,7 @@ namespace ShootEmUp.Gameplay.Weapon.Shooting
 
         protected bool ShootBullet() 
         {
-            return Identity.BulletsInstantiator.ActivateBullet(Identity.Stats._bulletStats, 
+            return Identity.BulletsActivator.ActivateBullet(Identity.Stats._bulletStats, 
                 Identity.Dimensions.Front.position, CalculateBulletDirection());
         }
 

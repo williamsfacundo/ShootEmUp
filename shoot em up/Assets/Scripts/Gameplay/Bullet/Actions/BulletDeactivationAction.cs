@@ -35,7 +35,7 @@ namespace ShootEmUp.Gameplay.Bullet.Actions
             }
             else
             {
-                Destroy(gameObject);
+                gameObject.SetActive(false);
             }
         }                
     }

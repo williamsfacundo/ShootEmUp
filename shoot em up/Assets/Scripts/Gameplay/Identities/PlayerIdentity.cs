@@ -75,6 +75,8 @@ namespace ShootEmUp.Gameplay.Identity
 
             _inventory.WeaponIdentityAux.InitialSettings();
 
+            _inventory.WeaponPickedUp();
+
             _useInventoryItem.InitialSettings();
 
             _aimWeapon.InitialSettings();

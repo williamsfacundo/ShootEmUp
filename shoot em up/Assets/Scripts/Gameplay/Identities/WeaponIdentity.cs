@@ -13,7 +13,7 @@ namespace ShootEmUp.Gameplay.Identity
     {
         [SerializeField] private WeaponStats _weaponStats;       
 
-        private WeaponBulletActivator _bulletsInstantiator;
+        private WeaponBulletActivator _bulletsActivator;
 
         private WeaponShootingAction _shootingAction;
 
@@ -27,11 +27,11 @@ namespace ShootEmUp.Gameplay.Identity
 
         private WeaponBulletsPool _bulletPool;
 
-        public WeaponBulletActivator BulletsInstantiator 
+        public WeaponBulletActivator BulletsActivator 
         {
             get 
             {
-                return _bulletsInstantiator;
+                return _bulletsActivator;
             }
         }
 
@@ -111,6 +111,8 @@ namespace ShootEmUp.Gameplay.Identity
 
         protected override void SetScripts() 
         {
+            _bulletsActivator.InitialSettings();
+
             _bulletPool.InitialSettings();
 
             _followingObject.InitialSettings();
@@ -126,7 +128,7 @@ namespace ShootEmUp.Gameplay.Identity
 
         protected override void GetComponents()
         {
-            _bulletsInstantiator = GetComponent<WeaponBulletActivator>();
+            _bulletsActivator = GetComponent<WeaponBulletActivator>();
 
             _shootingAction = GetComponent<WeaponShootingAction>();
 
