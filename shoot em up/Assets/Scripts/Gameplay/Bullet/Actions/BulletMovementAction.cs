@@ -1,7 +1,6 @@
 using UnityEngine;
 
 using ShootEmUp.Gameplay.Identity;
-using ShootEmUp.ScriptsUtils;
 
 namespace ShootEmUp.Gameplay.Bullet.Actions
 {   
@@ -35,12 +34,7 @@ namespace ShootEmUp.Gameplay.Bullet.Actions
             {
                 _moveSpeed = value;
             }
-        }
-
-        void Start()
-        {
-            Identity.EntityRigidbody2D.MoveRotation(Utils.GetAngleFromVectorFloat(_moveDirection));
-        }
+        }        
 
         void FixedUpdate()
         {

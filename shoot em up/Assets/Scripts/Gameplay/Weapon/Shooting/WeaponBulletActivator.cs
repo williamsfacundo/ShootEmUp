@@ -2,6 +2,7 @@ using UnityEngine;
 
 using ShootEmUp.Gameplay.ScriptableObjects;
 using ShootEmUp.Gameplay.Identity;
+using ShootEmUp.ScriptsUtils;
 
 namespace ShootEmUp.Gameplay.Weapon.Shooting
 {    
@@ -35,6 +36,8 @@ namespace ShootEmUp.Gameplay.Weapon.Shooting
                 _bulletIdentity.Deactivator.BulletRange = bulletStats._bulletRange;
 
                 _bulletIdentity.Damage.Damage = bulletStats._bulletDamage;
+
+                _bulletIdentity.EntityRigidbody2D.MoveRotation(Utils.GetAngleFromVectorFloat(bulletDirection));
 
                 return true;
             }
