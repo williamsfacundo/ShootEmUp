@@ -37,18 +37,18 @@ namespace ShootEmUp.Gameplay.WorldGeneration
             _camerasInstantiator = GetComponent<CamerasInstantiator>();
         }
 
-        private void SetObjects() 
-        {
-            _playersInstantiator.SetUpPlayers();
-
-            _camerasInstantiator.SetCamerasTarget(_playersInstantiator.PlayersIdentity.transform);
-        }
-
         private void InitializeScripts() 
         {
             _playersInstantiator.InstantiateObjects();
 
             _camerasInstantiator.InstantiateObjects();
+        }
+        
+        private void SetObjects() 
+        {
+            _playersInstantiator.SetUpPlayers();
+
+            _camerasInstantiator.SetCamerasTarget(_playersInstantiator.PlayersIdentity.transform);
         }
 
         private void GenerateWorld() 

@@ -38,6 +38,8 @@ namespace ShootEmUp.Gameplay.Camera
         public void SetTarget(Transform targetTransform) 
         {
             _targetTransform = targetTransform;
+
+            _cameraHasTarget = true;
         }
 
         private void SetInitialPosition() 
