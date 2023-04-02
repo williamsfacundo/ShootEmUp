@@ -8,7 +8,7 @@ namespace ShootEmUp.Gameplay.WorldGeneration
     {
         private GameObject _camera;
 
-        private CameraFollowingObject _followingObject;         
+        private CameraFollowingObject _followingObject;        
 
         public override void InstantiateObjects()
         {
