@@ -39,21 +39,20 @@ namespace ShootEmUp.Gameplay.Weapon
             return gameObject;
         } 
         
-        public void DroppedDown()
+        public void DroppedDown(Vector3 objectPosition)
         {
-            if (_onPickedUpBehaviour != (IActionable)Identity.Levitation)
-            {
-                _onPickedUpBehaviour = Identity.Levitation;
-            }
+            _onPickedUpBehaviour = null;
+
+            transform.position = objectPosition;
 
             transform.eulerAngles = Vector3.zero;
 
-            transform.localScale = Vector3.one;
+            transform.localScale = Vector3.one;            
 
             OnWeaponDropped?.Invoke();
         }
 
-        public void UseItem() //Shoot
+        public void UseItem()
         {
             Identity.ShootingAction.ShootMechanic(); 
         }
@@ -62,7 +61,19 @@ namespace ShootEmUp.Gameplay.Weapon
         {
             Identity = GetComponent<WeaponIdentity>();
 
-            DroppedDown();
+            Identity.ParabolaMovement.OnParabolaFinished += SetPickedUpBehaviourToLevitation;
+
+            //DroppedDown(transform.position);
+
+            SetPickedUpBehaviourToLevitation();
+        }
+
+        private void SetPickedUpBehaviourToLevitation() 
+        {
+            if (_onPickedUpBehaviour != (IActionable)Identity.Levitation)
+            {
+                _onPickedUpBehaviour = Identity.Levitation;
+            }
         }
     }
 }

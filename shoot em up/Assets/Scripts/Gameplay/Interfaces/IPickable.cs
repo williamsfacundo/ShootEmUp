@@ -6,6 +6,6 @@ namespace ShootEmUp.Gameplay.Interfaces
     {
         public GameObject PickedUp(GameObject objectThatPickedUp);
 
-        public void DroppedDown();
+        public void DroppedDown(Vector3 objectPosition);
     }
 }

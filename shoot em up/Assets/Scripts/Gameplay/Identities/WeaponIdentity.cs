@@ -9,6 +9,7 @@ namespace ShootEmUp.Gameplay.Identity
 {
     [RequireComponent(typeof(WeaponBulletActivator), typeof(WeaponDimensions), typeof(WeaponPickedUp))]
     [RequireComponent(typeof(WeaponLevitation), typeof(WeaponFollowingObject), typeof(WeaponBulletsPool))]
+    [RequireComponent(typeof(WeaponParabolaMovement))]
     public class WeaponIdentity : IdentityObject
     {
         [SerializeField] private WeaponStats _weaponStats;       
@@ -26,6 +27,8 @@ namespace ShootEmUp.Gameplay.Identity
         private WeaponFollowingObject _followingObject;
 
         private WeaponBulletsPool _bulletPool;
+
+        private WeaponParabolaMovement _parabolaMovement;
 
         public WeaponBulletActivator BulletsActivator 
         {
@@ -91,6 +94,14 @@ namespace ShootEmUp.Gameplay.Identity
             }
         }
 
+        public WeaponParabolaMovement ParabolaMovement 
+        {
+            get
+            { 
+                return _parabolaMovement;
+            }
+        }
+
         public override void InitialSettings()
         {
             if (_weaponStats == null)
@@ -124,6 +135,8 @@ namespace ShootEmUp.Gameplay.Identity
             _pickedUp.InitialSettings();
 
             _shootingAction.InitialSettings();
+
+            _parabolaMovement.InitialSettings();
         }
 
         protected override void GetComponents()
@@ -141,6 +154,8 @@ namespace ShootEmUp.Gameplay.Identity
             _followingObject = GetComponent<WeaponFollowingObject>();
 
             _bulletPool = GetComponent<WeaponBulletsPool>();
+
+            _parabolaMovement = GetComponent<WeaponParabolaMovement>();
         }
         
         private void GenerateShootingScriptComponent() 

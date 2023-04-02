@@ -39,7 +39,7 @@ namespace ShootEmUp.Gameplay.Player.Items
 
         public void SwitchEquippedItem(GameObject newWeapon) 
         {
-            _equippedItem.GetComponent<IEquipableItem>().DroppedDown();
+            _equippedItem.GetComponent<IEquipableItem>().DroppedDown(transform.position);
 
             _equippedItem = newWeapon;
 

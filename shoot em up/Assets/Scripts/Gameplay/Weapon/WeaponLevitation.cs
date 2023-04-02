@@ -23,7 +23,7 @@ namespace ShootEmUp.Gameplay.Weapon
 
         void OnDestroy()
         {
-            Identity.PickedUp.OnWeaponDropped -= ResetLevitation;
+            Identity.ParabolaMovement.OnParabolaFinished -= ResetLevitation;
         }
 
         public void ResetLevitation()
@@ -46,7 +46,7 @@ namespace ShootEmUp.Gameplay.Weapon
         {
             Identity = GetComponent<WeaponIdentity>();
 
-            Identity.PickedUp.OnWeaponDropped += ResetLevitation;
+            Identity.ParabolaMovement.OnParabolaFinished += ResetLevitation;
 
             ResetLevitation();
 
