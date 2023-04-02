@@ -8,8 +8,6 @@ namespace ShootEmUp.Gameplay.Player.Items
 {
     public class PlayerInventory : PlayerBase
     {
-        [SerializeField] private GameObject _initialEquipItemPrefab;
-
         public event Action OnWeaponChanged;
 
         private GameObject _equippedItem;
@@ -54,13 +52,13 @@ namespace ShootEmUp.Gameplay.Player.Items
         {
             Identity = GetComponent<PlayerIdentity>();
 
-            if (_initialEquipItemPrefab == null)
+            if (Identity.Stats._initialWeapon == null)
             {
                 Debug.LogError("No initial weapon was given!");
             }
             else
             {
-                if (IsEquipItemPrefabAnEquippableItem(_initialEquipItemPrefab))
+                if (IsEquipItemPrefabAnEquippableItem(Identity.Stats._initialWeapon))
                 {
                     SetInitialWeapon();
                 }
@@ -75,7 +73,7 @@ namespace ShootEmUp.Gameplay.Player.Items
 
         private void SetInitialWeapon()
         {
-            _equippedItem = Instantiate(_initialEquipItemPrefab, transform.position, Quaternion.identity);
+            _equippedItem = Instantiate(Identity.Stats._initialWeapon, transform.position, Quaternion.identity);
 
             _equipableItem = _equippedItem.GetComponent<IEquipableItem>();
 

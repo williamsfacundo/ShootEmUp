@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 1202282419194757545}
   - component: {fileID: 2087556051141552598}
   - component: {fileID: 2087556051141552597}
+  - component: {fileID: 7400147352991072686}
   - component: {fileID: 7338890536778894858}
   - component: {fileID: 3220345684855326325}
   m_Layer: 0
@@ -175,6 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ca0f399663384f49b300fc31eb23a64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerStats: {fileID: 11400000, guid: 5717deb432b89714e95984c57ab7eda8, type: 2}
 --- !u!114 &7322011932503073524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,7 +201,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2de23ac8f7784e8428f5026b8fa28b20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initialWeaponPrefab: {fileID: 2315911232555427952, guid: 2fe687966157e3f4eaf0757703d075e3, type: 3}
 --- !u!114 &2087556051141552598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,7 +213,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 640f873ce0d75e348a92fc39829a61da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pullTheTriggerMouseButton: 0
 --- !u!114 &2087556051141552597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,6 +223,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6132159e8e14fc54a98e9067609b23df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7400147352991072686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7338890536778894848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3403511c8c914043a1c4fc0e6e37fd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!50 &7338890536778894858

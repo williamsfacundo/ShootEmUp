@@ -10,6 +10,14 @@ namespace ShootEmUp.Gameplay.Player.Actions.Combat
 
         public event Action OnMouseButtonPressed;
 
+        public MouseButton Button 
+        {
+            set 
+            { 
+                _mouseButton = value; 
+            }
+        }
+
         void Update()
         {
             MouseInput();

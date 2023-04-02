@@ -1,16 +1,19 @@
 using UnityEngine;
 
+using ShootEmUp.Gameplay.Player.Items;
+using ShootEmUp.Gameplay.Player.Actions.Items;
 using ShootEmUp.Gameplay.Player.Actions.Combat;
 using ShootEmUp.Gameplay.Player.Actions.Movement;
-using ShootEmUp.Gameplay.Player.Actions.Items;
-using ShootEmUp.Gameplay.Player.Items;
+using ShootEmUp.Gameplay.Player.ScriptableObjects;
 
 namespace ShootEmUp.Gameplay.Identity 
 {
     [RequireComponent(typeof(PlayerMouseInput),typeof(PlayerMovementController), (typeof(PlayerAimWeapon)))]
     [RequireComponent(typeof(PlayerInventory), typeof(PlayerUseInventoryItemAction), typeof(PlayerPickUpItem))]
     public class PlayerIdentity : IdentityObject
-    {    
+    {
+        [SerializeField] private PlayerStats _playerStats;
+
         private PlayerMouseInput _useInventoryItemMouseInput;
 
         private PlayerMovementController _movementController;
@@ -22,6 +25,14 @@ namespace ShootEmUp.Gameplay.Identity
         private PlayerUseInventoryItemAction _useInventoryItem;
 
         private PlayerPickUpItem _pickUpItem;
+
+        public PlayerStats Stats 
+        {
+            get 
+            {
+                return _playerStats;
+            }
+        }
 
         public PlayerMouseInput UseInventoryItemMouseInput
         {
@@ -82,6 +93,13 @@ namespace ShootEmUp.Gameplay.Identity
 
         protected override void SetScripts()
         {
+            if (_playerStats == null) 
+            {
+                Debug.LogError("PlayerStats missing!");
+            }
+
+            _useInventoryItemMouseInput.Button = _playerStats._useItemMouseButton;
+
             _inventory.InitialSettings();           
 
             _useInventoryItem.InitialSettings();
