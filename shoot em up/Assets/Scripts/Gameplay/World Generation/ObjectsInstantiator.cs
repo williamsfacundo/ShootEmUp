@@ -6,6 +6,6 @@ namespace ShootEmUp.Gameplay.WorldGeneration
     {
         [SerializeField] protected GameObject _objectPrefab;
 
-        public abstract void InstantiateObjects();        
+        public abstract void InstantiateObjects();
     }
 }

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90da2bd97c7878549ab6798e8e89b089, type: 3}
   m_Name: PlayerOneStats
   m_EditorClassIdentifier: 
-  _initialWeapon: {fileID: 2315911232555427952, guid: 6a8fa260b43ff264ea663ed1d02a2d96, type: 3}
+  _initialWeapon: {fileID: 2315911232555427952, guid: 2fe687966157e3f4eaf0757703d075e3, type: 3}
   _useItemMouseButton: 0
   _pickUpItemButton: 101

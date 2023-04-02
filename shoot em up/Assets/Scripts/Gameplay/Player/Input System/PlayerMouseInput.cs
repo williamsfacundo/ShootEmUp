@@ -14,7 +14,7 @@ namespace ShootEmUp.Gameplay.Player.InputSystem
         {
             set 
             { 
-                _mouseButton = value; 
+                _mouseButton = value;
             }
         }
 

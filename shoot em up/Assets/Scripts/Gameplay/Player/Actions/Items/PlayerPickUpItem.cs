@@ -28,7 +28,7 @@ namespace ShootEmUp.Gameplay.Player.Actions.Items
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
-        {
+        {            
             if (_pickUpItem) 
             {
                 if (collision is IEquipableItem) 
