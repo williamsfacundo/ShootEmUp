@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e376a6eb6fe0c6646ad7219458a49332, type: 3}
-  m_Name: ak47_stats
+  m_Name: rifle_lvl_1_stats
   m_EditorClassIdentifier: 
   _bulletStats: {fileID: 11400000, guid: bbf169ca300ee584a89e23d0884d3dde, type: 2}
   _weaponShootingType: 0

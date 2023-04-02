@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90da2bd97c7878549ab6798e8e89b089, type: 3}
-  m_Name: PlayerOneStats
+  m_Script: {fileID: 11500000, guid: 93300e306009a6244a88ca91afe7a7c4, type: 3}
+  m_Name: rifle_lvl_1_Bullet
   m_EditorClassIdentifier: 
-  _initialWeapon: {fileID: 2315911232555427952, guid: 6a8fa260b43ff264ea663ed1d02a2d96, type: 3}
-  _useItemMouseButton: 0
+  _bulletPrefab: {fileID: 6397490783273112079, guid: a4e1ec42ad666d94d8ddf32d941a9fd5, type: 3}
+  _bulletSpeed: 5
+  _bulletRange: 15
+  _bulletDamage: 5

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 93300e306009a6244a88ca91afe7a7c4, type: 3}
-  m_Name: AK47_Bullet
+  m_Name: rifle_lvl_2_Bullet
   m_EditorClassIdentifier: 
-  _bulletPrefab: {fileID: 6397490783273112079, guid: a4e1ec42ad666d94d8ddf32d941a9fd5, type: 3}
-  _bulletSpeed: 5
-  _bulletRange: 15
-  _bulletDamage: 5
+  _bulletPrefab: {fileID: 6397490783273112079, guid: 146e12a871618824e8c929513e066cc6, type: 3}
+  _bulletSpeed: 10
+  _bulletRange: 20
+  _bulletDamage: 10
