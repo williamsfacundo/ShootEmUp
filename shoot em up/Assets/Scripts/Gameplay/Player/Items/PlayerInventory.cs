@@ -2,63 +2,65 @@ using UnityEngine;
 using System;
 
 using ShootEmUp.Gameplay.Identity;
+using ShootEmUp.Gameplay.Interfaces;
 
 namespace ShootEmUp.Gameplay.Player.Items
 {
     public class PlayerInventory : PlayerBase
     {
-        [SerializeField] private GameObject _initialWeaponPrefab;
+        [SerializeField] private GameObject _initialEquipItemPrefab;
 
         public event Action OnWeaponChanged;
 
-        private GameObject _weapon;
+        private GameObject _equippedItem;
 
         private WeaponIdentity _weaponIdentityAux;
 
-        public GameObject Weapon 
+        IEquipableItem _equipableItem;
+
+        public GameObject EquippedItem 
         {
             get 
             {
-                return _weapon;
+                return _equippedItem;
             }
         }
 
-        public WeaponIdentity WeaponIdentityAux 
+        public IEquipableItem EquipableItem 
         {
             get 
-            { 
-                return _weaponIdentityAux;
+            {
+                return _equipableItem;
             }
         }
 
-        public void SwitchWeapon(GameObject newWeapon) 
+        void OnDestroy()
         {
-            if (IsGameObjectAWeapon(newWeapon)) 
-            {
-                if (_weapon != null)
-                {
-                    Destroy(_weapon);
-                }
+            Identity.PickUpItem.OnItemPickedUp -= SwitchEquippedItem;
+        }
 
-                _weapon = newWeapon;
+        public void SwitchEquippedItem(GameObject newWeapon) 
+        {
+            _equippedItem.GetComponent<IEquipableItem>().DroppedDown();
 
-                _weapon.GetComponent<WeaponIdentity>().PickedUp.PickedUp(gameObject);
+            _equippedItem = newWeapon;
 
-                OnWeaponChanged?.Invoke();
-            }
+            _equipableItem = _equippedItem.GetComponent<IEquipableItem>(); 
+
+            OnWeaponChanged?.Invoke();            
         }
 
         public override void InitialSettings()
         {
             Identity = GetComponent<PlayerIdentity>();
 
-            if (_initialWeaponPrefab == null)
+            if (_initialEquipItemPrefab == null)
             {
                 Debug.LogError("No initial weapon was given!");
             }
             else
             {
-                if (IsGameObjectAWeapon(_initialWeaponPrefab))
+                if (IsEquipItemPrefabAnEquippableItem(_initialEquipItemPrefab))
                 {
                     SetInitialWeapon();
                 }
@@ -67,24 +69,26 @@ namespace ShootEmUp.Gameplay.Player.Items
                     Debug.LogError("The initial weapon given is not a weapon!");
                 }
             }
+
+            Identity.PickUpItem.OnItemPickedUp += SwitchEquippedItem;
         }
 
-        public void WeaponPickedUp() 
+        private void SetInitialWeapon()
         {
+            _equippedItem = Instantiate(_initialEquipItemPrefab, transform.position, Quaternion.identity);
+
+            _equipableItem = _equippedItem.GetComponent<IEquipableItem>();
+
+            _weaponIdentityAux = _equippedItem.GetComponent<WeaponIdentity>();
+
+            _weaponIdentityAux.InitialSettings();
+
             _weaponIdentityAux.PickedUp.PickedUp(gameObject);
         }
 
-        private void SetInitialWeapon() 
+        private bool IsEquipItemPrefabAnEquippableItem(GameObject prefab) 
         {
-            _weapon = Instantiate(_initialWeaponPrefab, transform.position, Quaternion.identity);
-
-            _weaponIdentityAux = _weapon.GetComponent<WeaponIdentity>();
-
-        }
-
-        private bool IsGameObjectAWeapon(GameObject gameObject) 
-        {
-            return gameObject.GetComponent<WeaponIdentity>() != null;
+            return prefab.GetComponent<IEquipableItem>() != null;
         }
     }
 }

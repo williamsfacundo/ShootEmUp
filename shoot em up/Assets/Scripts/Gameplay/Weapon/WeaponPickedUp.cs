@@ -6,9 +6,9 @@ using ShootEmUp.Gameplay.Identity;
 
 namespace ShootEmUp.Gameplay.Weapon 
 {    
-    public class WeaponPickedUp : WeaponBase, IPickable
+    public class WeaponPickedUp : WeaponBase, IEquipableItem
     {
-        private IActionable _onPickedUpBehaviour;       
+        private IActionable _onPickedUpBehaviour;     
 
         public event Action<Transform> OnWeaponPickedUpWithTransform;
 
@@ -21,7 +21,7 @@ namespace ShootEmUp.Gameplay.Weapon
             _onPickedUpBehaviour?.DoAction();
         }
 
-        public void PickedUp(GameObject objectThatPickedUp)
+        public GameObject PickedUp(GameObject objectThatPickedUp)
         {
             if (_onPickedUpBehaviour != (IActionable)Identity.FollowingObject)
             {
@@ -31,6 +31,8 @@ namespace ShootEmUp.Gameplay.Weapon
             OnWeaponPickedUpWithTransform?.Invoke(objectThatPickedUp.transform);
 
             OnWeaponPickedUp?.Invoke();
+
+            return gameObject;
         } 
         
         public void DroppedDown()
@@ -41,6 +43,11 @@ namespace ShootEmUp.Gameplay.Weapon
             }
 
             OnWeaponDropped?.Invoke();
+        }
+
+        public void UseItem() //Shoot
+        {
+            Identity.ShootingAction.ShootMechanic(); 
         }
 
         public override void InitialSettings()

@@ -29,7 +29,7 @@ namespace ShootEmUp.Gameplay.Player.Actions.Combat
         {
             Identity = GetComponent<PlayerIdentity>();
 
-            _weaponTransform = Identity.Inventory.Weapon.transform;
+            _weaponTransform = Identity.Inventory.EquippedItem.transform;
 
             _eulerAngles = new Vector3();            
         }

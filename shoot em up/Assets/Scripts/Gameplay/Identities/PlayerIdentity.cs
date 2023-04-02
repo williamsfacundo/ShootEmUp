@@ -2,29 +2,32 @@ using UnityEngine;
 
 using ShootEmUp.Gameplay.Player.Actions.Combat;
 using ShootEmUp.Gameplay.Player.Actions.Movement;
+using ShootEmUp.Gameplay.Player.Actions.Items;
 using ShootEmUp.Gameplay.Player.Items;
 
 namespace ShootEmUp.Gameplay.Identity 
 {
-    [RequireComponent(typeof(PlayerPullTheTriggerAction),typeof(PlayerMovementController), (typeof(PlayerAimWeapon)))]
-    [RequireComponent(typeof(PlayerInventory), typeof(PlayerUseInventoryItem))]
+    [RequireComponent(typeof(PlayerMouseInput),typeof(PlayerMovementController), (typeof(PlayerAimWeapon)))]
+    [RequireComponent(typeof(PlayerInventory), typeof(PlayerUseInventoryItemAction), typeof(PlayerPickUpItem))]
     public class PlayerIdentity : IdentityObject
     {    
-        private PlayerPullTheTriggerAction _pullTheTriggerAction;
+        private PlayerMouseInput _useInventoryItemMouseInput;
 
         private PlayerMovementController _movementController;
 
         private PlayerAimWeapon _aimWeapon;
 
-        private PlayerInventory _inventory; 
+        private PlayerInventory _inventory;
         
-        private PlayerUseInventoryItem _useInventoryItem;
+        private PlayerUseInventoryItemAction _useInventoryItem;
 
-        public PlayerPullTheTriggerAction PullTheTriggerAction
+        private PlayerPickUpItem _pickUpItem;
+
+        public PlayerMouseInput UseInventoryItemMouseInput
         {
             get 
             {
-                return _pullTheTriggerAction;
+                return _useInventoryItemMouseInput;
             }
         }
 
@@ -52,11 +55,19 @@ namespace ShootEmUp.Gameplay.Identity
             }
         }
 
-        public PlayerUseInventoryItem UseInventoryItem 
+        public PlayerUseInventoryItemAction UseInventoryItem 
         {
             get 
             {
                 return _useInventoryItem;
+            }
+        }
+
+        public PlayerPickUpItem PickUpItem 
+        {
+            get 
+            {
+                return _pickUpItem;
             }
         }
 
@@ -71,22 +82,20 @@ namespace ShootEmUp.Gameplay.Identity
 
         protected override void SetScripts()
         {
-            _inventory.InitialSettings();
-
-            _inventory.WeaponIdentityAux.InitialSettings();
-
-            _inventory.WeaponPickedUp();
+            _inventory.InitialSettings();           
 
             _useInventoryItem.InitialSettings();
 
             _aimWeapon.InitialSettings();
 
             _movementController.InitialSettings();
+
+            _pickUpItem.InitialSettings();
         }
 
         protected override void GetComponents()
         {
-            _pullTheTriggerAction = GetComponent<PlayerPullTheTriggerAction>();
+            _useInventoryItemMouseInput = GetComponent<PlayerMouseInput>();
 
             _movementController = GetComponent<PlayerMovementController>();
 
@@ -94,7 +103,9 @@ namespace ShootEmUp.Gameplay.Identity
 
             _inventory = GetComponent<PlayerInventory>();
 
-            _useInventoryItem = GetComponent<PlayerUseInventoryItem>();
+            _useInventoryItem = GetComponent<PlayerUseInventoryItemAction>();
+
+            _pickUpItem = GetComponent<PlayerPickUpItem>();
         }
     }
 }
