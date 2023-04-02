@@ -12,9 +12,7 @@ namespace ShootEmUp.Gameplay.Player.Actions.Items
 
         private IEquipableItem _equipableItemAux;
 
-        public event Action<GameObject> OnItemPickedUp;
-
-        bool _pickUpItem;
+        public event Action<GameObject> OnItemPickedUp;        
 
         public GameObject PickedUpItem 
         {
@@ -26,39 +24,37 @@ namespace ShootEmUp.Gameplay.Player.Actions.Items
 
         void OnDestroy()
         {
-            Identity.PickUpItemKeyboardInput.OnKeyboardKeyPressed -= SetPickUpItemTrue;
+            Identity.PickUpItemKeyboardInput.OnKeyboardKeyPressed -= PickUpItem;
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
+        void OnTriggerEnter2D(Collider2D collision)
         {            
-            if (_pickUpItem) 
-            {
-                _equipableItemAux = collision.GetComponent<IEquipableItem>();
+            _equipableItemAux = collision.GetComponent<IEquipableItem>();
+        }
 
-                if (_equipableItemAux != null) 
-                {
-                    _pickedUpItem = _equipableItemAux.PickedUp(gameObject);
-
-                    OnItemPickedUp?.Invoke(_pickedUpItem);
-                }
-
-                _pickUpItem = !_pickUpItem;
-            }
+        void OnTriggerExit2D(Collider2D collision)
+        {
+            _equipableItemAux = null;
         }
 
         public override void InitialSettings()
         {
             Identity = GetComponent<PlayerIdentity>();
 
-            Identity.PickUpItemKeyboardInput.OnKeyboardKeyPressed += SetPickUpItemTrue;
+            Identity.PickUpItemKeyboardInput.OnKeyboardKeyPressed += PickUpItem;
 
-            _pickUpItem = false;
+            _equipableItemAux = null;
         }
 
 
-        private void SetPickUpItemTrue() 
+        private void PickUpItem() 
         {
-            _pickUpItem = true;
+            if (_equipableItemAux != null)
+            {
+                _pickedUpItem = _equipableItemAux.PickedUp(gameObject);
+
+                OnItemPickedUp?.Invoke(_pickedUpItem);
+            }
         }
     }
 }
