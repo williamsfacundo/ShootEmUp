@@ -22,11 +22,9 @@ namespace ShootEmUp.Gameplay.Player.Actions.Items
             }
         }
 
-        public override void InitialSettings()
+        void OnDestroy()
         {
-            Identity = GetComponent<PlayerIdentity>();
-
-            _pickUpItem = false;
+            Identity.PickUpItemKeyboardInput.OnKeyboardKeyPressed -= SetPickUpItemTrue;
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -42,6 +40,21 @@ namespace ShootEmUp.Gameplay.Player.Actions.Items
 
                 _pickUpItem = !_pickUpItem;
             }
+        }
+
+        public override void InitialSettings()
+        {
+            Identity = GetComponent<PlayerIdentity>();
+
+            Identity.PickUpItemKeyboardInput.OnKeyboardKeyPressed += SetPickUpItemTrue;
+
+            _pickUpItem = false;
+        }
+
+
+        private void SetPickUpItemTrue() 
+        {
+            _pickUpItem = true;
         }
     }
 }

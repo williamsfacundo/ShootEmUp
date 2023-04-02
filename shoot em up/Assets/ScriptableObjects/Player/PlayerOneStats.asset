@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _initialWeapon: {fileID: 2315911232555427952, guid: 6a8fa260b43ff264ea663ed1d02a2d96, type: 3}
   _useItemMouseButton: 0
+  _pickUpItemButton: 101

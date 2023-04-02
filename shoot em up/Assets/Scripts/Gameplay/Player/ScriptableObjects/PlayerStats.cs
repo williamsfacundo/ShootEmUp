@@ -9,5 +9,7 @@ namespace ShootEmUp.Gameplay.Player.ScriptableObjects
         public GameObject _initialWeapon;
 
         public MouseButton _useItemMouseButton;
+
+        public KeyCode _pickUpItemButton;
     }
 }

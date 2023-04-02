@@ -1,8 +1,8 @@
-using Unity.VisualScripting;
-using UnityEngine;
 using System;
+using UnityEngine;
+using Unity.VisualScripting;
 
-namespace ShootEmUp.Gameplay.Player.Actions.Combat
+namespace ShootEmUp.Gameplay.Player.InputSystem
 {
     public class PlayerMouseInput : MonoBehaviour
     {
