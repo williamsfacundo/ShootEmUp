@@ -28,6 +28,10 @@ namespace ShootEmUp.Gameplay.Weapon
                 _onPickedUpBehaviour = Identity.FollowingObject;
             }            
 
+            transform.eulerAngles = Vector3.zero;
+
+            transform.localScale = Vector3.one;
+
             OnWeaponPickedUpWithTransform?.Invoke(objectThatPickedUp.transform);
 
             OnWeaponPickedUp?.Invoke();
@@ -41,6 +45,10 @@ namespace ShootEmUp.Gameplay.Weapon
             {
                 _onPickedUpBehaviour = Identity.Levitation;
             }
+
+            transform.eulerAngles = Vector3.zero;
+
+            transform.localScale = Vector3.one;
 
             OnWeaponDropped?.Invoke();
         }

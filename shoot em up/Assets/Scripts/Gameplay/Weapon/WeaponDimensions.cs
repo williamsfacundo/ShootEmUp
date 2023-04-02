@@ -11,9 +11,9 @@ namespace ShootEmUp.Gameplay.Weapon
 
         [SerializeField] private Transform _spriteTransform;
 
-        [SerializeField] private Vector3 _spriteOffset;        
+        [SerializeField] private Vector3 _spriteOffset;
 
-        private Vector3 _originPosition;
+        [SerializeField] private Vector3 _originPosition;
 
         public Transform Front
         {
@@ -40,12 +40,12 @@ namespace ShootEmUp.Gameplay.Weapon
 
         public void ApplyOffsetToSpritePosition() 
         {
-            _spriteTransform.position += _spriteOffset;            
-        }
+            _spriteTransform.localPosition = _spriteOffset;                    
+        }               
 
         public void SetSpritePositionToOrigin() 
-        {
-            _spriteTransform.position = _originPosition;
+        {            
+            _spriteTransform.localPosition = _originPosition;
         }
 
         public override void InitialSettings()
@@ -69,9 +69,7 @@ namespace ShootEmUp.Gameplay.Weapon
 
             Identity.PickedUp.OnWeaponPickedUp += ApplyOffsetToSpritePosition;
 
-            Identity.PickedUp.OnWeaponDropped += SetSpritePositionToOrigin;
-
-            _originPosition = _spriteTransform.position;
+            Identity.PickedUp.OnWeaponDropped += SetSpritePositionToOrigin;            
         }
     }
 }

@@ -10,6 +10,8 @@ namespace ShootEmUp.Gameplay.Player.Actions.Items
     {
         private GameObject _pickedUpItem;
 
+        private IEquipableItem _equipableItemAux;
+
         public event Action<GameObject> OnItemPickedUp;
 
         bool _pickUpItem;
@@ -31,9 +33,11 @@ namespace ShootEmUp.Gameplay.Player.Actions.Items
         {            
             if (_pickUpItem) 
             {
-                if (collision is IEquipableItem) 
+                _equipableItemAux = collision.GetComponent<IEquipableItem>();
+
+                if (_equipableItemAux != null) 
                 {
-                    _pickedUpItem = collision.GetComponent<IEquipableItem>().PickedUp(gameObject);
+                    _pickedUpItem = _equipableItemAux.PickedUp(gameObject);
 
                     OnItemPickedUp?.Invoke(_pickedUpItem);
                 }

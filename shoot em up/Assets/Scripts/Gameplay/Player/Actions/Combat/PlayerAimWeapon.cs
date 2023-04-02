@@ -25,11 +25,16 @@ namespace ShootEmUp.Gameplay.Player.Actions.Combat
             AimingWeapon();
         }
 
+        void OnDestroy()
+        {
+            Identity.Inventory.OnWeaponChanged -= UpdateWeaponTransform;
+        }
+
         public override void InitialSettings()
         {
             Identity = GetComponent<PlayerIdentity>();
 
-            _weaponTransform = Identity.Inventory.EquippedItem.transform;
+            Identity.Inventory.OnWeaponChanged += UpdateWeaponTransform;            
 
             _eulerAngles = new Vector3();            
         }
@@ -70,6 +75,11 @@ namespace ShootEmUp.Gameplay.Player.Actions.Combat
             }
 
             _weaponTransform.localScale = _aimLocalScale;
+        }
+
+        private void UpdateWeaponTransform() 
+        {
+            _weaponTransform = Identity.Inventory.EquippedItem.transform;
         }
     }
 }

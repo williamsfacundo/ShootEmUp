@@ -82,6 +82,8 @@ namespace ShootEmUp.Gameplay.Player.Items
             _weaponIdentityAux.InitialSettings();
 
             _weaponIdentityAux.PickedUp.PickedUp(gameObject);
+
+            OnWeaponChanged?.Invoke();
         }
 
         private bool IsEquipItemPrefabAnEquippableItem(GameObject prefab) 

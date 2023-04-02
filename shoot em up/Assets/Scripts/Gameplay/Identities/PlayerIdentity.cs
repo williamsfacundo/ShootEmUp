@@ -114,11 +114,11 @@ namespace ShootEmUp.Gameplay.Identity
 
             _pickUpItemKeyboardInput.KeyboardButton = _playerStats._pickUpItemButton;
 
+            _aimWeapon.InitialSettings();
+            
             _inventory.InitialSettings();           
 
             _useInventoryItem.InitialSettings();
-
-            _aimWeapon.InitialSettings();
 
             _movementController.InitialSettings();
 
