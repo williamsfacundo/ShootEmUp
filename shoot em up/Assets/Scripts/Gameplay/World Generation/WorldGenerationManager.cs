@@ -28,8 +28,6 @@ namespace ShootEmUp.Gameplay.WorldGeneration
 
         void Start()
         {
-            Cursor.visible = false;
-
             GenerateWorld();
         }
 
