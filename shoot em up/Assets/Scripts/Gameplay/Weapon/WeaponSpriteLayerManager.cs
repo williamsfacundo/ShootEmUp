@@ -1,11 +1,19 @@
 using ShootEmUp.Gameplay.Identity;
 using UnityEngine;
 
-namespace ShootEmUp.Gameplay.Weapon 
+namespace ShootEmUp.Gameplay.Weapon
 {
     public class WeaponSpriteLayerManager : WeaponBase
     {
         private SpriteRenderer _weaponSpriteRenderer;
+
+        public SpriteRenderer SpriteRenderer 
+        {
+            get 
+            {
+                return _weaponSpriteRenderer;
+            }
+        }
 
         void OnDestroy()
         {

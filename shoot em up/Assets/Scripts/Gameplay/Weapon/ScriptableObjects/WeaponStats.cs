@@ -8,6 +8,10 @@ namespace ShootEmUp.Gameplay.Weapon.ScriptableObjects
     [CreateAssetMenu(fileName = "NewWeaponStats", menuName = "ShootEmUp/Weapon Stats", order = 1)]
     public class WeaponStats : ScriptableObject
     {
+        public Sprite _rawSprite;
+
+        public Sprite _handSprite;
+
         public BulletStats _bulletStats;
 
         public WeaponShootingTypeEnum _weaponShootingType;
