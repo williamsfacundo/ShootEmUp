@@ -1,5 +1,6 @@
-using ShootEmUp.Gameplay.Identity;
 using UnityEngine;
+
+using ShootEmUp.Gameplay.Identity;
 
 namespace ShootEmUp.Gameplay.Weapon
 {
