@@ -63,7 +63,7 @@ namespace ShootEmUp.Gameplay.Weapon
 
             Identity.ParabolaMovement.OnParabolaFinished += SetPickedUpBehaviourToLevitation;
 
-            //DroppedDown(transform.position);
+            DroppedDown(transform.position);
 
             SetPickedUpBehaviourToLevitation();
         }

@@ -33,8 +33,12 @@ namespace ShootEmUp.Gameplay.Weapon
             _goingUp = true;
 
             _initialPosition = transform.position;
+            Debug.Log(_initialPosition);
 
             _destinyPosition = transform.position + (Vector3.up * _levitateDistance);
+            Debug.Log(_destinyPosition);
+
+            _auxVector.y = 0.0f;
         }
 
         public void DoAction()
@@ -57,7 +61,7 @@ namespace ShootEmUp.Gameplay.Weapon
         {
             _lerpResult = Mathf.Lerp(_initialPosition.y, _destinyPosition.y, _lerpTime);
 
-            _auxVector.y = _lerpResult;
+            _auxVector.y = _lerpResult - _initialPosition.y;
 
             transform.position = _initialPosition + _auxVector;
 

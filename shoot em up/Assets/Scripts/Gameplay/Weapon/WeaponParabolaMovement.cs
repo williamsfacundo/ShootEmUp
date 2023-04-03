@@ -32,6 +32,8 @@ namespace ShootEmUp.Gameplay.Weapon
             else 
             {
                 OnParabolaFinished?.Invoke();
+
+                enabled = false;
             }
         }
 
