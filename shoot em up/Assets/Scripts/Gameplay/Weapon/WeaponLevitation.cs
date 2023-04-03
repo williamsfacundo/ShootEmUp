@@ -32,11 +32,9 @@ namespace ShootEmUp.Gameplay.Weapon
 
             _goingUp = true;
 
-            _initialPosition = transform.position;
-            Debug.Log(_initialPosition);
+            _initialPosition = transform.position;           
 
-            _destinyPosition = transform.position + (Vector3.up * _levitateDistance);
-            Debug.Log(_destinyPosition);
+            _destinyPosition = transform.position + (Vector3.up * _levitateDistance);            
 
             _auxVector.y = 0.0f;
         }

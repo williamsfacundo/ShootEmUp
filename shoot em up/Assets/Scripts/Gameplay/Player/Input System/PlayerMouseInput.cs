@@ -10,6 +10,10 @@ namespace ShootEmUp.Gameplay.Player.InputSystem
 
         public event Action OnMouseButtonPressed;
 
+        public event Action OnMouseButtonHeldDown;
+
+        private bool _isPressed;
+
         public MouseButton Button 
         {
             set 
@@ -18,17 +22,37 @@ namespace ShootEmUp.Gameplay.Player.InputSystem
             }
         }
 
-        void Update()
+        void Start()
         {
-            MouseInput();
+            _isPressed = true;
         }
 
-        private void MouseInput()
+        void Update()
+        {
+            if (_isPressed) 
+            {
+                MouseInputButtonPress();
+            }
+            else 
+            {
+                MouseInputButtonHeldDown();
+            }
+        }
+
+        private void MouseInputButtonPress()
         {
             if (Input.GetMouseButtonDown((int)_mouseButton))
             {
                 OnMouseButtonPressed?.Invoke();
             }                        
+        }
+
+        private void MouseInputButtonHeldDown()
+        {
+            if (Input.GetMouseButton((int)_mouseButton))
+            {
+                OnMouseButtonHeldDown?.Invoke();
+            }
         }
     }
 }
