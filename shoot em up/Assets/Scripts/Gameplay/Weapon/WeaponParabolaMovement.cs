@@ -2,47 +2,35 @@ using System;
 using UnityEngine;
 
 using ShootEmUp.Gameplay.Identity;
+using ShootEmUp.Gameplay.Physics;
+using Unity.VisualScripting;
 
 namespace ShootEmUp.Gameplay.Weapon
 {
     public class WeaponParabolaMovement : WeaponBase
     {
         public event Action OnParabolaFinished;
-
-        private Vector3 _originalDirection;
-
-        private Vector3 _direction;
-
-        private float _parabolaTime;
-
-        private float _negativeVelocity;
         
-        private float _velocity;
+        private const float ParabolaDuration = 1.0f;
 
-        private float _timer;      
+        private Vector3 _initialPosition;
+
+        private Vector3 _initialVelocity;
+
+        private Vector3 _resultingPosition;
+
+        private float _yAceleration;
+
+        private float _currentTime;
 
         void Update()
-        {
-            if (_timer > 0.0f) 
-            {
-                _timer -= Time.deltaTime;
-
-                _direction.y -= (_negativeVelocity * Time.deltaTime) * _originalDirection.y;                
-            }
-            else 
-            {
-                OnParabolaFinished?.Invoke();
-
-                enabled = false;
-            }
+        {           
+            ParabolaTimeStatus();
         }
 
         void FixedUpdate()
         {
-            if (_timer > 0.0f)
-            {
-                transform.position += _direction * _velocity * Time.deltaTime;                
-            }            
+            Move();
         }
 
         void OnDestroy()
@@ -54,40 +42,61 @@ namespace ShootEmUp.Gameplay.Weapon
         {
             Identity = GetComponent<WeaponIdentity>();
 
-            Identity.PickedUp.OnWeaponDropped += EnableScript;
+            Identity.PickedUp.OnWeaponDropped += EnableScript;           
 
-            SetValues();
+            _initialVelocity = new Vector3(1.0f, 4f, 0.0f);
+
+            _yAceleration = -(_initialVelocity.y * 2.0f);
+
+            _resultingPosition = Vector3.zero;
 
             enabled = false;
+            
+            ResetValues();            
+        }
+        
+        private void ResetValues()
+        {
+            _initialPosition = transform.position;
+
+            _currentTime = 0.0f;                                                
         }
 
-        private void EnableScript() 
+        private void Move() 
+        {
+            _resultingPosition.x = transform.position.x + _initialVelocity.x * Time.deltaTime;
+
+            _resultingPosition.y = UARM.CalculatePositionRelatedToTime(_initialPosition.y, _initialVelocity.y, _yAceleration, _currentTime);
+
+            _resultingPosition.z = transform.position.z;
+
+            transform.position = _resultingPosition;
+        }       
+
+        private void ParabolaTimeStatus() 
+        {
+            if (_currentTime >= ParabolaDuration) 
+            {
+                OnParabolaFinished?.Invoke();
+
+                enabled = false;
+            }
+            else 
+            {
+                _currentTime += Time.deltaTime;
+
+                if (_currentTime > ParabolaDuration) 
+                {
+                    _currentTime = ParabolaDuration;
+                }
+            }
+        }
+
+        private void EnableScript()
         {
             enabled = true;
 
             ResetValues();
         }
-
-        private void SetValues() 
-        {
-            _originalDirection = new Vector3(1.0f, 3.0f, 0.0f); //The higher the value in Y the higher the parabola in Y will be
-
-            _direction = _originalDirection;
-
-            _parabolaTime = 1.5f;
-
-            _velocity = _parabolaTime / 2.0f;
-
-            _negativeVelocity = 1.0f / _velocity;
-
-            _timer = _parabolaTime;
-        }
-
-        private void ResetValues() 
-        {
-            _direction = _originalDirection;
-
-            _timer = _parabolaTime;
-        }        
     }
 }
