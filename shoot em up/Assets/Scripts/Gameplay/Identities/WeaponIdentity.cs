@@ -1,9 +1,9 @@
 using UnityEngine;
 
-using ShootEmUp.Gameplay.Weapon.ScriptableObjects;
-using ShootEmUp.Gameplay.Weapon.Shooting;
-using ShootEmUp.Gameplay.Weapon.Enums;
 using ShootEmUp.Gameplay.Weapon;
+using ShootEmUp.Gameplay.Weapon.Enums;
+using ShootEmUp.Gameplay.Weapon.Shooting;
+using ShootEmUp.Gameplay.Weapon.ScriptableObjects;
 
 namespace ShootEmUp.Gameplay.Identity 
 {
@@ -125,7 +125,7 @@ namespace ShootEmUp.Gameplay.Identity
             }
             else
             {
-                GenerateShootingScriptComponent();
+                _shootingAction = ShootingBuilder.GenerateShootingScriptComponent(gameObject, _weaponStats._weaponShootingType);
             }
 
             SetRigidbody2D();
@@ -183,28 +183,6 @@ namespace ShootEmUp.Gameplay.Identity
             _spriteLayerManager = GetComponent<WeaponSpriteLayerManager>();
 
             _spriteController = GetComponent<WeaponSpriteController>();
-        }
-        
-        private void GenerateShootingScriptComponent() 
-        {
-            switch (_weaponStats._weaponShootingType) 
-            {
-                case WeaponShootingTypeEnum.INDIVIDUAL:
-
-                    _shootingAction = ((WeaponSingleShooting)gameObject.AddComponent(typeof(WeaponSingleShooting)));                    
-
-                    break;
-                case WeaponShootingTypeEnum.BURST:
-
-                    _shootingAction = ((WeaponSingleShooting)gameObject.AddComponent(typeof(WeaponSingleShooting)));
-
-                    break;
-                case WeaponShootingTypeEnum.SHOTGUN:
-
-                    _shootingAction = ((WeaponSingleShooting)gameObject.AddComponent(typeof(WeaponSingleShooting)));
-
-                    break;
-            }            
-        }
+        }       
     }
 }
