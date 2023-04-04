@@ -1,63 +1,149 @@
 using UnityEngine;
 
 using ShootEmUp.Gameplay.Identity;
+using TMPro;
 
 namespace ShootEmUp.Gameplay.Player.Actions.Movement
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerMovementController : PlayerBase
     {
-        [SerializeField] [Range(10.0f, 50.0f)] private float _velocity;
+        private Vector3 _aceleration;
 
-        [SerializeField] private string _horizontalAxisName;
+        private Vector3 _negatedAceleration;
 
-        [SerializeField] private string _verticalAxisName;        
-
-        private Vector2 _position;
-        private Vector3 _moveDirection;
-
-        private float _inputX;
-        private float _inputY;        
+        private Vector3 _velocity;                    
 
         void Update()
         {
-            MovementInput();
-
-            CalculateMoveDirection();            
+            MovementCalculations();         
         }
 
         void FixedUpdate()
         {
-            Movement();            
+            Move();       
+        }
+
+        void OnDestroy()
+        {
+            Identity.MovementAxisInput.OnAxisOneValueChanged -= UpdateXAceleration;
+
+            Identity.MovementAxisInput.OnAxisTwoValueChanged -= UpdateYAceleration;
         }
 
         public override void InitialSettings()
         {
-            Identity = GetComponent<PlayerIdentity>();            
+            Identity = GetComponent<PlayerIdentity>();
 
-            _position = Vector2.zero;
+            Identity.MovementAxisInput.OnAxisOneValueChanged += UpdateXAceleration;
 
-            _moveDirection = Vector3.zero;
+            Identity.MovementAxisInput.OnAxisTwoValueChanged += UpdateYAceleration;
+
+            _aceleration = Vector3.zero;
+
+            _negatedAceleration = Vector3.zero;
+
+            _velocity = Vector3.zero;
+        }        
+
+        private void MovementCalculations() 
+        {
+            if (_aceleration.x != 0.0f && Mathf.Abs(_velocity.x) < Identity.Stats._maxVelocity) 
+            {
+                _velocity.x += _aceleration.x * Time.deltaTime;
+            }
+
+            if (_aceleration.y != 0.0f && Mathf.Abs(_velocity.y) < Identity.Stats._maxVelocity)
+            {
+                _velocity.y += _aceleration.y * Time.deltaTime;
+            }
+
+            if (_negatedAceleration.x != 0.0f && _velocity.x != 0.0f)
+            {
+                _velocity.x += _negatedAceleration.x * Time.deltaTime;
+
+                if (_negatedAceleration.x > 0.0f) 
+                {
+                    if (_velocity.x > 0.0f) 
+                    {
+                        _velocity.x = 0.0f;
+                    }
+                }
+                else 
+                {
+                    if (_velocity.x < 0.0f)
+                    {
+                        _velocity.x = 0.0f;
+                    }
+                }
+            }
+
+            if (_negatedAceleration.y != 0.0f && _velocity.y != 0.0f)
+            {
+                _velocity.y += _negatedAceleration.y * Time.deltaTime;
+
+                if (_negatedAceleration.y > 0.0f)
+                {
+                    if (_velocity.y > 0.0f)
+                    {
+                        _velocity.y = 0.0f;
+                    }
+                }
+                else
+                {
+                    if (_velocity.y < 0.0f)
+                    {
+                        _velocity.y = 0.0f;
+                    }
+                }
+            }
         }
 
-        private void MovementInput() 
+        private void Move()
         {
-            _inputX = Input.GetAxisRaw(_horizontalAxisName);            
-            _inputY = Input.GetAxisRaw(_verticalAxisName);
+            transform.position += _velocity * Time.deltaTime;                           
         }
 
-        private void CalculateMoveDirection() 
+        private void UpdateXAceleration() 
         {
-            _moveDirection.x = _inputX * _velocity * Time.deltaTime;
-            _moveDirection.y = _inputY * _velocity * Time.deltaTime;            
+            _aceleration.x = Identity.Stats._movementAceleration * Identity.MovementAxisInput.AxisOneValue;
+
+            if (Identity.MovementAxisInput.AxisOneValue == 0.0f) 
+            {
+                if (_velocity.x > 0.0f) 
+                {
+                    _negatedAceleration.x = -Identity.Stats._maxVelocity * 2.0f;
+                }
+                else 
+                {
+                    _negatedAceleration.x = Identity.Stats._maxVelocity * 2.0f;
+                }                
+            }
+            else 
+            {
+                _negatedAceleration.x = 0.0f;
+            }
         }
 
-        private void Movement()
+        private void UpdateYAceleration() 
         {
-            _position.x = transform.position.x;
-            _position.y = transform.position.y;
+            _aceleration.y = Identity.Stats._movementAceleration * Identity.MovementAxisInput.AxisTwoValue;
 
-            transform.position += _moveDirection;                      
+            if (Identity.MovementAxisInput.AxisTwoValue == 0.0f)
+            {
+                if (_velocity.y > 0.0f)
+                {
+                    _negatedAceleration.y = -Identity.Stats._maxVelocity * 2.0f;   
+                }
+                else
+                {
+                    _negatedAceleration.y = Identity.Stats._maxVelocity * 2.0f;
+                }
+            }
+            else
+            {
+                _negatedAceleration.y = 0.0f;
+            }
         }
     }
 }

@@ -11,7 +11,7 @@ namespace ShootEmUp.Gameplay.Identity
 {
     [RequireComponent(typeof(PlayerMouseInput),typeof(PlayerMovementController), (typeof(PlayerAimWeapon)))]
     [RequireComponent(typeof(PlayerInventory), typeof(PlayerUseInventoryItemAction), typeof(PlayerPickUpItem))]
-    [RequireComponent(typeof(PlayerKeyboardInput))]
+    [RequireComponent(typeof(PlayerKeyboardInput), typeof(PlayerAxisInput))]
     public class PlayerIdentity : IdentityObject
     {
         [SerializeField] private PlayerStats _playerStats;
@@ -29,6 +29,8 @@ namespace ShootEmUp.Gameplay.Identity
         private PlayerPickUpItem _pickUpItem;
 
         private PlayerKeyboardInput _pickUpItemKeyboardInput;
+
+        private PlayerAxisInput _movementAxisInput;
 
         public PlayerStats Stats 
         {
@@ -94,6 +96,14 @@ namespace ShootEmUp.Gameplay.Identity
             }
         }
 
+        public PlayerAxisInput MovementAxisInput 
+        {
+            get 
+            {
+                return _movementAxisInput;
+            }
+        }
+
         public override void InitialSettings()
         {
             SetRigidbody2D();
@@ -113,6 +123,10 @@ namespace ShootEmUp.Gameplay.Identity
             _useInventoryItemMouseInput.Button = _playerStats._useItemMouseButton;
 
             _pickUpItemKeyboardInput.KeyboardButton = _playerStats._pickUpItemButton;
+
+            _movementAxisInput.AxisOneName = _playerStats._horizontalAxisName;
+
+            _movementAxisInput.AxisTwoName = _playerStats._verticalAxisName;
 
             _aimWeapon.InitialSettings();
             
@@ -140,6 +154,8 @@ namespace ShootEmUp.Gameplay.Identity
             _pickUpItem = GetComponent<PlayerPickUpItem>();
 
             _pickUpItemKeyboardInput = GetComponent<PlayerKeyboardInput>();
+
+            _movementAxisInput = GetComponent<PlayerAxisInput>();
         }
     }
 }

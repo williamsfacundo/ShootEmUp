@@ -3,7 +3,6 @@ using UnityEngine;
 
 using ShootEmUp.Gameplay.Identity;
 using ShootEmUp.Gameplay.Physics;
-using Unity.VisualScripting;
 
 namespace ShootEmUp.Gameplay.Weapon
 {
@@ -21,7 +20,7 @@ namespace ShootEmUp.Gameplay.Weapon
 
         private float _yAceleration;
 
-        private float _currentTime;
+        private float _currentTime;        
 
         void Update()
         {           
@@ -97,6 +96,6 @@ namespace ShootEmUp.Gameplay.Weapon
             enabled = true;
 
             ResetValues();
-        }
+        }              
     }
 }

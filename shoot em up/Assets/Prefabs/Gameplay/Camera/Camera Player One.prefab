@@ -111,6 +111,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65e54eb80a29dc549bacb65373c60b3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cameraTarget: 0
-  _followingVelocity: 2
+  _followingVelocity: 6
   _initialZPosition: -10

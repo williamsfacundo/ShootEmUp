@@ -11,5 +11,13 @@ namespace ShootEmUp.Gameplay.Player.ScriptableObjects
         public MouseButton _useItemMouseButton;
 
         public KeyCode _pickUpItemButton;
+
+        public string _horizontalAxisName;
+
+        public string _verticalAxisName;
+
+        public float _movementAceleration;
+
+        public float _maxVelocity;
     }
 }

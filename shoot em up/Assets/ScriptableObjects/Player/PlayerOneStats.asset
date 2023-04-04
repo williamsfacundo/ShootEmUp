@@ -15,3 +15,7 @@ MonoBehaviour:
   _initialWeapon: {fileID: 2315911232555427952, guid: 2fe687966157e3f4eaf0757703d075e3, type: 3}
   _useItemMouseButton: 0
   _pickUpItemButton: 101
+  _horizontalAxisName: Horizontal
+  _verticalAxisName: Vertical
+  _movementAceleration: 3
+  _maxVelocity: 9
